@@ -1,0 +1,53 @@
+{
+    "semiconductors": {
+        "label": "Semiconductors",
+        "diodes": {
+            "label": "Diodes"
+        },
+        "bridgeRectifiers": {
+            "label": "Bridge Rectifiers"
+        }
+    },
+    "optoelectronics": {
+        "label": "Optoelectronics"
+    },
+    "passives": {
+        "label": "Passives"
+    },
+    "connectors": {
+        "label": "Connectors"
+    },
+    "fusesAndCircuitBreakers": {
+        "label": "Fuses and Circuit Breakers"
+    },
+    "switchesAndIndicators": {
+        "label": "Switches and Indicators"
+    },
+    "soundSources": {
+        "label": "Sound Sources"
+    },
+    "relaysAndContactors": {
+        "label": "Relays and Contactors"
+    },
+    "transformersAndFerriteCores": {
+        "label": "Transformers and Ferrite Cores"
+    },
+    "fansCoolingAndHeatingSystems": {
+        "label": "Fans, Cooling and Heating Systems"
+    },
+    "powerSources": {
+        "label": "Power Sources"
+    },
+    "wiresAndCables": {
+        "label": "Wires and Cables"
+    },
+    "mechanical": {
+        "label": "Mechanical"
+    },
+    "enclosures": {
+        "label": "Enclosures"
+    },
+    "computerAccessories": {
+        "label": "Computer Accessories"
+    }
+}
