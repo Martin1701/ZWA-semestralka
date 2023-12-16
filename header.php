@@ -36,11 +36,13 @@
 <header>
     <a href="/~husarma1"><img width="200" alt="logo" class="logo" src=""></a>
     <form class="search-container">
-        <input type="text" autocomplete="off" class="search-bar" id="searchBar" placeholder="Enter product name (2+ characters)" maxlength="50" minlength="2" required>
-        <svg class="svg-icon svg-close" id="searchBarClear" viewBox="0 -2 20 20" data-is-empty="false">
-            <use xlink:href="/~husarma1/svg/close.svg#close-svg"></use>
-        </svg>
-        <button type="submit" class="search-button" title="search">
+        <input type="text" autocomplete="off" id="searchBar" placeholder="Enter product name (2+ characters)" maxlength="50" minlength="2" required>
+        <button type="reset" title="Clear">
+            <svg class="svg-icon" viewBox="0 -2 20 20" data-is-empty="false">
+                <use xlink:href="/~husarma1/svg/close.svg#close-svg"></use>
+            </svg>
+        </button>
+        <button type="submit" title="Search">
             <svg class="svg-icon" viewBox="0 0 50 50">
                 <use xlink:href="/~husarma1/svg/magnifier.svg#magnifier-svg"></use>
             </svg>

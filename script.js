@@ -1,31 +1,28 @@
-window.onload = () => {
-    // dom loaded ? ......
-    const searchBar = document.getElementById("searchBar");
+document.addEventListener("DOMContentLoaded", function () {
+    /* header-specific event listeners */
+    document.querySelector(`.search-container>input[type="text"]`).addEventListener("input", showClear); // show clear button when text is inputted
 
-    searchBar.addEventListener("input", showClear);
+    const searchClear = document.querySelector(`.search-container>button[type="reset"]`);
+    searchClear.addEventListener("click", clearSearch); // hide button when clicked
+    searchClear.children[0].classList.add("hidden"); // hide it on page load (it stays visible with JS disabled)
 
-    const searchBarClear = document.getElementById("searchBarClear");
-    searchBarClear.addEventListener("click", clearSearchBar);
-    searchBarClear.children[0].classList.add("hidden");
-
+    /* login */
+    // TODO move to its own JS file
     const username_field = document.getElementById("input-login");
     if (username_field) {
         username_field.addEventListener("input", usernameExists)
     }
-}
+});
 function showClear(e) {
-    const searchBarClear = document.getElementById("searchBarClear");
+    const searchClear = document.querySelector(`.search-container>button[type="reset"]`);
     if (e.target.value.length > 0) {
-        searchBarClear.children[0].classList.remove("hidden");
+        searchClear.children[0].classList.remove("hidden");
     } else {
-        searchBarClear.children[0].classList.add("hidden");
+        searchClear.children[0].classList.add("hidden");
     }
 }
-function clearSearchBar(e) {
-    const searchBarClear = document.getElementById("searchBarClear");
-    searchBarClear.children[0].classList.add("hidden");
-    const searchBar = document.getElementById("searchBar");
-    searchBar.value = "";
+function clearSearch(e) {
+    e.currentTarget.children[0].classList.add("hidden");
 }
 
 async function usernameExists(e) {

@@ -88,7 +88,7 @@ header {
 
 .search-container {
     display: grid;
-    grid-template-columns: 1fr 1rem auto;
+    grid-template-columns: 1fr auto auto;
     grid-template-rows: 3rem;
     width: 50%;
     background-color: white;
@@ -98,18 +98,38 @@ header {
     border-radius: .5rem;
 }
 
-.search-bar {
+/* clear search button */
+.search-container>button[type="reset"] {
+    margin: 0;
+    padding: 0;
+    border: none;
+    aspect-ratio: 1/1;
+    height: 100%;
+    background-color: white;
+}
+
+.search-container>button[type="reset"]>svg {
+    fill: grey;
+    transform: scale(.6);
+}
+
+/* searchbox input */
+.search-container>input[type="text"] {
     padding: 0 4rem 0 2rem;
     border: none;
     border-radius: .25rem 0 0 .25rem;
 }
 
-.search-bar:focus {
+.search-container>input[type="text"]:focus {
     outline: none;
-    box-shadow: var(--marian-blue) 0 0 .8rem;
+    box-shadow: white 20px 0 0, var(--marian-blue) 0 0 14px;
 }
 
-.search-button {
+.search-container>input[type="text"]:focus+button[type="reset"] {
+    box-shadow: white -20px 0 0, var(--marian-blue) 0 0 14px;
+}
+
+.search-container>button[type="submit"] {
     text-align: center;
     height: 100%;
     width: 3rem;
@@ -118,14 +138,13 @@ header {
     background-color: var(--marian-blue);
     border: none;
     border-radius: 0 .25rem .25rem 0;
-    margin-left: .8rem;
 }
 
-.search-button:hover {
+.search-container>button[type="submit"]:hover {
     background-color: var(--phthalo-blue);
 }
 
-.search-button:focus {
+.search-container>button[type="submit"]:focus {
     outline: none;
     box-shadow: var(--marian-blue) 0 0 .8rem;
 }
@@ -139,22 +158,15 @@ header {
     height: 100%;
 }
 
+.svg-icon>use {
+    display: block;
+}
+
 .svg-icon-small {
     align-self: center;
     fill: black;
     height: 1rem;
     width: 1rem;
-}
-
-.svg-close {
-    height: 100%;
-    aspect-ratio: 1/2;
-    fill: grey;
-    background-color: white;
-    /* padding-top: 1rem; */
-    display: flex;
-    align-content: center;
-    justify-content: center;
 }
 
 .main-page-container {
