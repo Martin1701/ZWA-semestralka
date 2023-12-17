@@ -214,7 +214,7 @@ header {
     font-size: 1rem;
 }
 
-#form-register {
+.user-form {
     display: grid;
     width: 100%;
     grid-column: 2;
@@ -224,7 +224,7 @@ header {
     width: 70%;
 }
 
-#form-register>h1 {
+.user-form>h1 {
     background-color: var(--ash-gray);
     width: 100%;
     display: block;
@@ -237,14 +237,14 @@ header {
     text-shadow: black 1px 1px 2px;
 }
 
-#form-register>h2 {
+.user-form>h2 {
     text-align: center;
     margin-bottom: 2rem;
     margin-top: .5rem;
 }
 
-#form-register input[type="text"],
-#form-register input[type="password"] {
+.user-form input[type="text"],
+.user-form input[type="password"] {
     justify-self: center;
     width: 80%;
     display: inline-block;
@@ -261,13 +261,13 @@ header {
     transition: background-size 200ms ease-out;
 }
 
-#form-register input[type="text"]:focus,
-#form-register input[type="password"]:focus {
+.user-form input[type="text"]:focus,
+.user-form input[type="password"]:focus {
     outline: none;
     box-shadow: var(--marian-blue) 0 0 4px;
 }
 
-#form-register input[type="submit"] {
+.user-form input[type="submit"] {
     justify-self: center;
     display: block;
     width: 50%;
@@ -280,15 +280,15 @@ header {
     font-size: 1.5rem;
 }
 
-#form-register input[type="submit"]:hover {
+.user-form input[type="submit"]:hover {
     background-color: var(--phthalo-blue);
 }
 
-#form-register input[type="submit"]:focus {
+.user-form input[type="submit"]:focus {
     outline: none;
 }
 
-#form-register aside {
+.user-form aside {
     margin-left: 60%;
     justify-self: left;
     margin-bottom: .5rem;
@@ -314,7 +314,7 @@ header {
     color: red;
 }
 
-#form-register p {
+.user-form p {
     height: 1rem;
     margin-bottom: 1rem;
     justify-self: center;

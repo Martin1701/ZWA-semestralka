@@ -3,12 +3,12 @@ include_once "/home/husarma1/www/users.php";
 
 class registerInput
 {
-    public $isPassword;     // if true use type="password"
-    public $value;          // pre-filled value (or user submitted)
-    public $notice;         // notice to display
-    public $name;           // name of the element
-    public $placeholder;    // input placeholder
-    public $valid;          // if login is valid or not
+    private $isPassword;        // if true use type="password"
+    public $value;              // pre-filled value (or user submitted)
+    public $notice;             // notice to display
+    public $name;               // name of the element
+    private $placeholder;       // input placeholder
+    public $valid;              // if input is valid or not
     public $minLength;
     public $maxLength;
     function __construct($name, $placeholder,  $isPassword = false, $minLength = 0, $maxLength = 0)
@@ -37,6 +37,15 @@ class registerInput
         $element .= "<p class=\"" . (($this->valid) ? "correctText" : "incorrectText") . "\">" . $this->notice . "</p>";
         return $element;
     }
+    function getInput()
+    {
+        // first, get value from POST
+        if (isset($_POST[$this->name]) && $_POST[$this->name]) {
+            $this->value = $_POST[$this->name];
+        } else {
+            $this->notice = "This field is obligatory.";
+        }
+    }
 }
 
 $fName = new registerInput("fName", "First name*");
@@ -54,20 +63,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // login is exception, special value valid is used, notice can be "Username valid."
 
     //* first name
-    if (isset($_POST[$fName->name]) && $_POST[$fName->name]) {
-        $fName->value = $_POST[$fName->name];
-    } else {
-        $fName->notice = "This field is obligatory.";
+    $fName->getInput();
+    if ($fName->value) {
+        $fName->valid = true;
     }
     //* last name
-    if (isset($_POST[$lName->name]) && $_POST[$lName->name]) {
-        $lName->value = $_POST[$lName->name];
-    } else {
-        $lName->notice = "This field is obligatory.";
+    $lName->getInput();
+    if ($lName->value) {
+        $lName->valid = true;
     }
     //* login
-    if (isset($_POST[$login->name]) && $_POST[$login->name]) {
-        $login->value = $_POST[$login->name];
+    $login->getInput();
+    if ($login->value) {
         $login->notice = validate_input($login->value, $login->minLength, $login->maxLength, "Login");
         // login is valid, check if the user already exists
         if (!$login->notice) {
@@ -78,34 +85,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $login->valid = true;
             }
         }
-    } else {
-        $login->notice = "This field is obligatory.";
     }
     //* password
-    if (isset($_POST[$password->name]) && $_POST[$password->name]) {
-        $password->value = $_POST[$password->name];
+    $password->getInput();
+    if ($password->value) {
         $password->notice = validate_input($password->value, $password->minLength, $password->maxLength, "Password");
-    } else {
-        $password->notice = "This field is obligatory.";
+        $password->valid = true;
     }
     //* retype password
-    if (isset($_POST[$password2->name]) && $_POST[$password2->name]) {
-        $password2->value = $_POST[$password2->name];
+    $password2->getInput();
+    if ($password2->value) {
         if ($password->value != $password2->value) {
             $password2->notice = "Passwords do not match.";
+        } else {
+            $password2->valid = true;
         }
-    } else {
-        $password2->notice = "This field is obligatory.";
     }
 
     if (
-        !$fName->notice &&
-        !$lName->notice &&
+        $fName->valid &&
+        $lName->valid &&
         $login->valid &&
-        !$password->notice &&
-        !$password2->notice
+        $password->valid &&
+        $password2->valid
     ) {
-        // no notices so everything is valid
         session_start();
         $h = password_hash($password->value, PASSWORD_DEFAULT);
         $_SESSION["id"] = addUser($fName->value, $lName->value, $login->value, $h);
@@ -151,6 +154,7 @@ function validate_input($input, $minLength, $maxLength, $name = "")
     <link rel="stylesheet" href="../styles.css">
     <title>Register</title>
     <script src="../script.js"></script>
+    <script src="./registerValidation.js"></script>
 </head>
 
 <body>
@@ -158,7 +162,7 @@ function validate_input($input, $minLength, $maxLength, $name = "")
     include "../header.php";
     ?>
     <main class="main-page-container">
-        <form action=<?php echo $_SERVER['PHP_SELF']; ?> method="post" id="form-register">
+        <form action=<?php echo $_SERVER['PHP_SELF']; ?> method="post" class="user-form">
             <h1>Register</h1>
             <h2>Please enter your login details</h2>
             <?php

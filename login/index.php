@@ -46,12 +46,18 @@ if (!isset($_SESSION["id"])) {
     <?php
     include "../header.php";
     ?>
-    <h1>Log in</h1>
-    <form action=<?php echo $_SERVER['PHP_SELF']; ?> method="post">
-        <input type="text" name="login" id="login" required value="<?php echo $login ?>">
-        <input type="password" name="password" required value="<?php echo $password ?>">
-        <input type="submit" value="Log in">
-    </form>
+
+    <main class="main-page-container">
+        <form class="user-form" action=<?php echo $_SERVER['PHP_SELF']; ?> method="post">
+            <h1>Log in</h1>
+            <h2>Please enter your login and password</h2>
+            <input type="text" name="login" id="login" required value="<?php echo $login ?>" placeholder="Login*">
+            <p></p>
+            <input type="password" name="password" required value="<?php echo $password ?>" placeholder="Password*">
+            <p></p>
+            <input type="submit" value="Log in">
+        </form>
+    </main>
 </body>
 
 </html>
