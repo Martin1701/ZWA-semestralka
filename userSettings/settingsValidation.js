@@ -2,8 +2,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const username_field = document.querySelector(`input[name="login"]`);
     username_field.addEventListener("input", validateLogin)
     const password_field = document.querySelectorAll(`input[type="password"]`);
-    password_field[0].addEventListener("input", validatePassword)
-    password_field[1].addEventListener("input", validatePassword2)
+    password_field[1].addEventListener("input", validatePassword)
+    password_field[2].addEventListener("input", validatePassword2)
 });
 
 
@@ -39,7 +39,8 @@ function validateStyle(notice, isValid, noticeElem, inputField) {
 async function validateLogin(e) {
     const name = e.target.previousSibling.innerHTML;
     let notice, isValid;
-    if (e.target.value) {
+    const currentLogin = document.querySelector("form>h1").innerHTML;
+    if (e.target.value && e.target.value != currentLogin) {
         [notice, isValid] = validate_input(e.target.value, e.target.minLength, e.target.maxLength, name);
         if (isValid) {
             const response = await fetch(`https://zwa.toad.cz/~husarma1/users.php?login=${encodeURIComponent(e.target.value)}`, { mode: 'no-cors' });

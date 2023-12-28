@@ -1,15 +1,15 @@
 {
     "semiconductors": {
-        "label": "Semiconductors",
-        "diodes": {
-            "label": "Diodes"
-        },
-        "bridgeRectifiers": {
-            "label": "Bridge Rectifiers"
-        }
+        "label": "Semiconductors"
+    },
+    "embeddedAndIoTSystems": {
+        "label": "Embedded and IoT systems"
     },
     "optoelectronics": {
         "label": "Optoelectronics"
+    },
+    "lightSources": {
+        "label": "Light sources"
     },
     "passives": {
         "label": "Passives"
@@ -49,5 +49,8 @@
     },
     "computerAccessories": {
         "label": "Computer Accessories"
+    },
+    "roboticsAndPrototyping": {
+        "label": "Robotics and Prototyping"
     }
 }

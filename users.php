@@ -73,10 +73,14 @@ function deleteUser($id)
     }
 }
 
-function editUser($id, $name, $password)
+function editUser($user)
 {
-    // TODO implement
-    // deleteUser($id);
-    // add new user, but with the same ID
-    // addUser($name, $password, $id);
+    $all = listUsers();
+    foreach ($all as $key => &$value) {
+        if ($value["id"] == $user["id"]) {
+            $all[$key] = $user;
+            saveUsers($all);
+            return;
+        }
+    }
 }

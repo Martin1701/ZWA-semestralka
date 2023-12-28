@@ -23,18 +23,20 @@ class registerInput
     // returns string that can be inserted directly into HTML
     function get_html()
     {
-        $element = "<input type=\"" . (($this->isPassword) ? "password" : "text") . "\" name=\"" . $this->name . "\"";
-        $element .= ($this->minLength) ? "minlength=\"" . $this->minLength . "\"" : "";
-        $element .= ($this->maxLength) ? "maxlength=\"" . $this->maxLength . "\"" : "";
+        $element = "<label for=\"" . $this->name . "\">" . $this->placeholder . "</label>";
+        $element .= "<input type=\"" . (($this->isPassword) ? "password" : "text") . "\" name=\"" . $this->name . "\" id=\"" . $this->name . "\"";
+        $element .= ($this->minLength) ? " minlength=\"" . $this->minLength . "\"" : "";
+        $element .= ($this->maxLength) ? " maxlength=\"" . $this->maxLength . "\"" : "";
         if ($this->name == "login" && $this->valid) {
             $element .= "class=\"correctInput\"";
         } else {
             $element .= (($this->notice) ? "class=\"incorrectInput\"" : "");
         }
-
-        $element .= " value=\"" . htmlspecialchars($this->value, ENT_QUOTES) . "\"";
-        $element .= " placeholder=\"" . $this->placeholder . "\">";
-        $element .= "<p class=\"" . (($this->valid) ? "correctText" : "incorrectText") . "\">" . $this->notice . "</p>";
+        if (!$this->isPassword) {
+            $element .= " value=\"" . htmlspecialchars($this->value, ENT_QUOTES) . "\"";
+        }
+        // $element .= " placeholder=\"" . $this->placeholder . "*\">";
+        $element .= "><p class=\"" . (($this->valid) ? "correctText" : "incorrectText") . "\">" . $this->notice . "</p>";
         return $element;
     }
     function getInput()
@@ -42,17 +44,19 @@ class registerInput
         // first, get value from POST
         if (isset($_POST[$this->name]) && $_POST[$this->name]) {
             $this->value = $_POST[$this->name];
+            return true;
         } else {
             $this->notice = "This field is obligatory.";
+            return false;
         }
     }
 }
 
-$fName = new registerInput("fName", "First name*");
-$lName = new registerInput("lName", "Last name*");
-$login = new registerInput("login", "Login*", false, 4, 30);
-$password = new registerInput("password", "Password*", true, 8, 30);
-$password2 = new registerInput("password2", "Confirm password*", true); // only $password's length is validated
+$fName = new registerInput("fName", "First name");
+$lName = new registerInput("lName", "Last name");
+$login = new registerInput("login", "Login", false, 4, 30);
+$password = new registerInput("password", "Password", true, 8, 30);
+$password2 = new registerInput("password2", "Confirm password", true); // only $password's length is validated
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Only way to register is through POST !
@@ -63,18 +67,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // login is exception, special value valid is used, notice can be "Username valid."
 
     //* first name
-    $fName->getInput();
-    if ($fName->value) {
+    if ($fName->getInput()) {
         $fName->valid = true;
     }
     //* last name
-    $lName->getInput();
-    if ($lName->value) {
+    if ($lName->getInput()) {
         $lName->valid = true;
     }
     //* login
-    $login->getInput();
-    if ($login->value) {
+    if ($login->getInput()) {
         $login->notice = validate_input($login->value, $login->minLength, $login->maxLength, "Login");
         // login is valid, check if the user already exists
         if (!$login->notice) {
@@ -87,16 +88,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
     //* password
-    $password->getInput();
-    if ($password->value) {
+    if ($password->getInput()) {
         $password->notice = validate_input($password->value, $password->minLength, $password->maxLength, "Password");
-        $password->valid = true;
+        if (!$password->notice) {
+            $password->valid = true;
+        } else {
+            $password->value = "";
+        }
     }
     //* retype password
-    $password2->getInput();
-    if ($password2->value) {
+    if ($password2->getInput()) {
         if ($password->value != $password2->value) {
             $password2->notice = "Passwords do not match.";
+            $password->value = "";
+            $password2->value = "";
         } else {
             $password2->valid = true;
         }
@@ -117,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("location: ../");
     }
 }
-// returns 0 when valid !
+// returns "" when valid !
 // else returns error message
 function validate_input($input, $minLength, $maxLength, $name = "")
 {

@@ -1,8 +1,53 @@
 <?php
 session_start();
 include_once "/home/husarma1/www/users.php";
-$login = "";
-$password = "";
+
+class loginInput
+{
+    private $isPassword;        // if true use type="password"
+    public $value;              // pre-filled value (or user submitted)
+    public $notice;             // notice to display
+    public $name;               // name of the element
+    private $placeholder;       // input placeholder
+    public $valid;              // if input is valid or not
+    function __construct($name, $placeholder,  $isPassword = false)
+    {
+        $this->name = $name;
+        $this->placeholder = $placeholder;
+        $this->isPassword = $isPassword;
+        $this->valid = false;
+    }
+    // returns string that can be inserted directly into HTML
+    function get_html()
+    {
+        $element = "<label for=\"" . $this->name . "\">" . $this->placeholder . "</label>";
+        $element .= "<input type=\"" . (($this->isPassword) ? "password" : "text") . "\" name=\"" . $this->name . "\"" . "\" id=\"" . $this->name . "\"";
+        if ($this->name == "login" && $this->valid) {
+            $element .= "class=\"correctInput\"";
+        } else {
+            $element .= (($this->notice) ? "class=\"incorrectInput\"" : "");
+        }
+
+        $element .= " value=\"" . htmlspecialchars($this->value, ENT_QUOTES) . "\"";
+        // $element .= " placeholder=\"" . $this->placeholder . "\">";
+        $element .= "><p class=\"" . (($this->valid) ? "correctText" : "incorrectText") . "\">" . $this->notice . "</p>";
+        return $element;
+    }
+    function getInput()
+    {
+        // first, get value from POST
+        if (isset($_POST[$this->name]) && $_POST[$this->name]) {
+            $this->value = $_POST[$this->name];
+            return true;
+        } else {
+            $this->notice = "This field is obligatory.";
+            return false;
+        }
+    }
+}
+
+$login = new loginInput("login", "Login", false);
+$password = new loginInput("password", "Password", true);
 
 if (isset($_SESSION["id"])) {
     if (getUser($_SESSION["id"])) {
@@ -11,21 +56,31 @@ if (isset($_SESSION["id"])) {
     }
 }
 
-if (isset($_POST["login"])) {
-    $login = $_POST["login"];
-}
-if (isset($_POST["password"])) {
-    $password = $_POST["password"];
-}
 
 
-if (!isset($_SESSION["id"])) {
-    if (existsUser($login)) {
-        $user = getUserByLogin($login);
-        if (password_verify($password, $user["password"])) {
-            $_SESSION["id"] = $user["id"];
-            header("location: ../");
-            die();
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($login->getInput() && $password->getInput()) {
+        if (!isset($_SESSION["id"])) {
+            if (existsUser($login->value)) {
+                $user = getUserByLogin($login->value);
+                if (password_verify($password->value, $user["password"])) {
+                    $_SESSION["id"] = $user["id"];
+                    // no need to set $login->valid=true and $password->valid=true
+                    if (isset($_COOKIE["afterLogin"])) {
+                        // if user comes from page that redirected him to login, return to that page
+                        header("location: " . $_COOKIE["afterLogin"]);
+                        setcookie("afterLogin", "", -1, "/");
+                    } else {
+                        header("location: ../");
+                    }
+                    die();
+                } else {
+                    $login->valid = true;
+                    $password->notice = "Incorrect password.";
+                }
+            } else {
+                $login->notice = "This user does not exist.";
+            }
         }
     }
 }
@@ -51,10 +106,10 @@ if (!isset($_SESSION["id"])) {
         <form class="user-form" action=<?php echo $_SERVER['PHP_SELF']; ?> method="post">
             <h1>Log in</h1>
             <h2>Please enter your login and password</h2>
-            <input type="text" name="login" id="login" required value="<?php echo $login ?>" placeholder="Login*">
-            <p></p>
-            <input type="password" name="password" required value="<?php echo $password ?>" placeholder="Password*">
-            <p></p>
+            <?php
+            echo $login->get_html();
+            echo $password->get_html();
+            ?>
             <input type="submit" value="Log in">
         </form>
     </main>
