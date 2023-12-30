@@ -32,11 +32,16 @@
             <use xlink:href="/~husarma1/svg/user.svg#user-svg"></use>
         </svg>
         User Settings</a>
+    <a href="/~husarma1/add">
+        <svg class="svg-icon svg-icon-small" viewBox="0 0 24 24">
+            <use xlink:href="/~husarma1/svg/add.svg#add-svg"></use>
+        </svg>
+        Add item</a>
 </nav>
 <header>
     <a href="/~husarma1"><img width="200" alt="logo" class="logo" src=""></a>
-    <form class="search-container">
-        <input type="text" autocomplete="off" id="searchBar" placeholder="Enter product name (2+ characters)" maxlength="50" minlength="2" required>
+    <form class="search-container" method="get" action="/~husarma1/katalog/">
+        <input type="text" name="q" autocomplete="off" id="searchBar" placeholder="Enter product name (2+ characters)" maxlength="50" minlength="2" required <?php echo (isset($_GET["q"]) ? ("value=\"" . htmlspecialchars($_GET["q"]) . "\"") : "") ?>>
         <button type="reset" title="Clear">
             <svg class="svg-icon" viewBox="0 -2 20 20" data-is-empty="false">
                 <use xlink:href="/~husarma1/svg/close.svg#close-svg"></use>

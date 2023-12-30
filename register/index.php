@@ -166,7 +166,7 @@ function validate_input($input, $minLength, $maxLength, $name = "")
     <?php
     include "../header.php";
     ?>
-    <main class="main-page-container">
+    <main>
         <form action=<?php echo $_SERVER['PHP_SELF']; ?> method="post" class="user-form">
             <h1>Register</h1>
             <h2>Please enter your login details</h2>

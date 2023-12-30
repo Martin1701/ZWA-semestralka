@@ -16,7 +16,7 @@ session_start() ?>
     <?php
     include "header.php";
     ?>
-    <main class="main-page-container">
+    <main>
         <form method="get" action="./katalog/" class="categories">
             <?php
             // Read the JSON file
@@ -28,12 +28,12 @@ session_start() ?>
             // Check if decoding was successful
             if ($data !== null) {
                 // Loop through each object in the JSON array
-                foreach ($data as $key => $value) {
+                foreach ($data["categories"] as $category => $label) {
                     // Print HTML element for each object
-                    echo '<button type="submit" value=' . $key . ' name="category">';
+                    echo '<button type="submit" value=' . $category . ' name="category">';
                     echo '<svg class="svg-icon" viewBox="0 0 50 50" data-is-empty="false">';
-                    echo '<use xlink:href="/~husarma1/svg/categories/' . $key . '.svg#' . $key . '-svg' . '"></use></svg>';
-                    echo '<span>' . $data[$key]['label'];
+                    echo '<use xlink:href="/~husarma1/svg/categories/' . $category . '.svg#' . $category . '-svg' . '"></use></svg>';
+                    echo '<span>' . $label;
                     echo '</span></button>';
                 }
             }

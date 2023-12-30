@@ -178,7 +178,7 @@ $login->value = $user["login"];
     <?php
     include "../header.php"; ?>
 </body>
-<main class="main-page-container">
+<main>
     <form action=<?php echo $_SERVER['PHP_SELF']; ?> method="post" class="user-form">
         <h1><?php echo htmlspecialchars($user["login"], ENT_QUOTES);
             ?></h1>
@@ -211,7 +211,7 @@ $login->value = $user["login"];
         <?php
         echo $password2->get_html();
         ?>
-        <input type="submit" name="submit" value="Save changes" title="Register">
+        <input type="submit" name="submit" value="Save changes" title="Save changes">
     </form>
 </main>
 

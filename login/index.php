@@ -1,4 +1,7 @@
 <?php
+/* set the cache expire to 120 minutes */
+// Set session lifetime to 1 hour (3600 seconds)
+ini_set('session.gc_maxlifetime', 3600);
 session_start();
 include_once "/home/husarma1/www/users.php";
 
@@ -102,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     include "../header.php";
     ?>
 
-    <main class="main-page-container">
+    <main>
         <form class="user-form" action=<?php echo $_SERVER['PHP_SELF']; ?> method="post">
             <h1>Log in</h1>
             <h2>Please enter your login and password</h2>
@@ -110,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo $login->get_html();
             echo $password->get_html();
             ?>
-            <input type="submit" value="Log in">
+            <input type="submit" value="Log in" title="Log in">
         </form>
     </main>
 </body>
