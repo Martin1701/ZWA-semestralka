@@ -1,0 +1,96 @@
+<main>
+    <form action="/~husarma1/userSettings/" method="post" class="user-form">
+        <h1>{{user.login}}</h1>
+        <h2>Here you can change your information.</h2>
+        <label for="{{fName.name}}">First name</label>
+        {{^fName.incorrect}}
+        <input type="text" name="{{fName.name}}" id="{{fName.name}}" {{#fName.value}}value="{{fName.value}}"{{/fName.value}}>
+        <p class="correctText">{{fName.notice}}</p>
+    {{/fName.incorrect}}
+    {{#fName.incorrect}}
+    <input type="text" name="{{fName.name}}" id="{{fName.name}}" class="incorrectInput" {{#fName.value}}value="{{fName.value}}"{{/fName.value}}>
+    <p class="incorrectText">{{fName.notice}}</p>
+{{/fName.incorrect}}
+<label for="{{lName.name}}">Last name</label>
+{{^lName.incorrect}}
+<input type="text" name="{{lName.name}}" id="{{lName.name}}" {{#lName.value}}value="{{lName.value}}"{{/lName.value}}>
+<p class="correctText">{{lName.notice}}</p>
+{{/lName.incorrect}}
+{{#lName.incorrect}}
+<input type="text" name="{{lName.name}}" id="{{lName.name}}" class="incorrectInput" {{#lName.value}}value="{{lName.value}}"{{/lName.value}}>
+<p class="incorrectText">{{lName.notice}}</p>
+{{/lName.incorrect}}
+<label for="{{login.name}}">Login</label>
+{{^login.incorrect}}
+{{#login.valid}}
+<input type="text" name="{{login.name}}" id="{{login.name}}" class="correctInput" {{#login.value}}value="{{login.value}}"{{/login.value}}>
+{{/login.valid}}
+{{^login.valid}}
+<input type="text" name="{{login.name}}" id="{{login.name}}" {{#login.value}}value="{{login.value}}"{{/login.value}}>
+{{/login.valid}}
+<p class="correctText">{{login.notice}}</p>
+{{/login.incorrect}}
+{{#login.incorrect}}
+<input type="text" name="{{login.name}}" id="{{login.name}}" class="incorrectInput" {{#login.value}}value="{{login.value}}"{{/login.value}}>
+<p class="incorrectText">{{login.notice}}</p>
+{{/login.incorrect}}
+<aside>
+    <strong>Login must contain:</strong>
+    <ul>
+        <li>from 4 to 30 characters</li>
+        <li>at least one letter</li>
+        <li>at least one digit</li>
+    </ul>
+</aside>
+<input type="submit" name="submit" value="Save changes" title="Register">
+<h2>Change password:</h2>
+<label for="{{passwordCur.name}}">Current password</label>
+{{^passwordCur.incorrect}}
+<input type="password" name="{{passwordCur.name}}" id="{{passwordCur.name}}">
+<p class="correctText">{{passwordCur.notice}}</p>
+{{/passwordCur.incorrect}}
+{{#passwordCur.incorrect}}
+<input type="text"
+       name="{{passwordCur.name}}"
+       id="{{passwordCur.name}}"
+       class="incorrectInput">
+<p class="incorrectText">{{passwordCur.notice}}</p>
+{{/passwordCur.incorrect}}
+<label for="{{password.name}}">New password</label>
+{{^password.incorrect}}
+<input type="password" name="{{password.name}}" id="{{password.name}}">
+<p class="correctText">{{password.notice}}</p>
+{{/password.incorrect}}
+{{#password.incorrect}}
+<input type="text"
+       name="{{password.name}}"
+       id="{{password.name}}"
+       class="incorrectInput">
+<p class="incorrectText">{{password.notice}}</p>
+{{/password.incorrect}}
+<aside>
+    <strong>Password must contain:</strong>
+    <ul>
+        <li>from 8 to 30 characters</li>
+        <li>at least one letter</li>
+        <li>at least one digit</li>
+    </ul>
+</aside>
+<label for="{{password2.name}}">Confirm new password</label>
+{{^password2.incorrect}}
+<input type="password" name="{{password2.name}}" id="{{password2.name}}">
+<p class="correctText">{{password2.notice}}</p>
+{{/password2.incorrect}}
+{{#password2.incorrect}}
+<input type="text"
+       name="{{password2.name}}"
+       id="{{password2.name}}"
+       class="incorrectInput">
+<p class="incorrectText">{{password2.notice}}</p>
+{{/password2.incorrect}}
+<input type="submit" name="submit" value="Save changes" title="Save changes">
+</form>
+</main>
+<script src="/~husarma1/public/js/userSettingsValidation.js"></script>
+</body>
+</html>

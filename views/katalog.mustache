@@ -1,0 +1,19 @@
+<main>
+    <ul class="searchResult">
+        {{#listItems}}
+        <li>
+            {{#item.imageFormat}}
+            <img src="/~husarma1/images/{{item.id}}.{{item.imageFormat}}"
+                 alt="{{item.name}} image">
+        {{/item.imageFormat}}
+        {{^item.imageFormat}}
+        <img src="/~husarma1/images/noImage.png" alt="No image">
+    {{/item.imageFormat}}
+    <a href="/~husarma1/item/details/?id={{item.id}}">{{item.name}}</a>
+    <p>Quantity: {{item.quantity}} pcs</p>
+</li>
+{{/listItems}}
+</ul>
+</main>
+</body>
+</html>

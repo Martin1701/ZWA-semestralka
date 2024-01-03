@@ -1,0 +1,39 @@
+<main>
+    <section class="item-info">
+        <h1>{{item.name}}</h1>
+        <p>{{item.description}}</p>
+        {{#item.imageFormat}}
+        <img src="/~husarma1/images/{{item.id}}.{{item.imageFormat}}"
+             alt="{{item.name}} image">
+    {{/item.imageFormat}}
+    {{^item.imageFormat}}
+    <img src="/~husarma1/images/noImage.png" alt="No image">
+{{/item.imageFormat}}
+<table>
+    <tbody>
+        <tr>
+            <td>Owned by:</td>
+            <td>{{owner.fName}}  {{owner.lName}}</td>
+        </tr>
+        <tr>
+            <td>Quantity:</td>
+            <td>{{item.quantity}} pcs</td>
+        </tr>
+        {{#item.attributes}}
+        <tr>
+            <td>{{attribute}}:</td>
+            <td>{{value}}</td>
+        </tr>
+    {{/item.attributes}}
+    <tr>
+        <td>
+            <a href="../edit/?id={{item.id}}">Edit</a>
+        </td>
+        <td>(requires ownership)</td>
+    </tr>
+</tbody>
+</table>
+</section>
+</main>
+</body>
+</html>

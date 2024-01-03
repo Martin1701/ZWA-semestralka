@@ -1,0 +1,94 @@
+<main>
+    <form action="/~husarma1/item/add/"
+          method="post"
+          class="user-form"
+          enctype="multipart/form-data">
+        <h1>Add item to Catalog</h1>
+        <h2>Please fill in necessary information.</h2>
+        <label for={{category.name}}>Category of the item
+        </label>
+        <select name={{category.name}} id={{category.name}} {{#category.incorrect}}class="incorrectInput"{{/category.incorrect}}  title="select item category">
+            <option value="0" label="Select a category ...">
+                {{#category.value}} selected="selected"{{/category.value}}>Select a category ...
+            </option>
+            <optgroup label="categories">
+                {{#categoryList}}
+                <option value={{category}} {{#selected}}selected="selected"{{/selected}}>{{label}}
+                </option>
+            {{/categoryList}}
+        </optgroup>
+    </select>
+    {{^category.incorrect}}
+    <p class="correctText">{{category.notice}}</p>
+{{/category.incorrect}}
+{{#category.incorrect}}
+<p class="incorrectText">{{category.notice}}</p>
+{{/category.incorrect}}
+<label for="{{name.name}}">Item name</label>
+{{^name.incorrect}}
+<input type="text" name="{{name.name}}" id="{{name.name}}" {{#name.value}}value="{{name.value}}"{{/name.value}}>
+<p class="correctText">{{name.notice}}</p>
+{{/name.incorrect}}
+{{#name.incorrect}}
+<input type="text" name="{{name.name}}" id="{{name.name}}" class="incorrectInput" {{#name.value}}value="{{name.value}}"{{/name.value}}>
+<p class="incorrectText">{{name.notice}}</p>
+{{/name.incorrect}}
+<label for="{{description.name}}">Description</label>
+{{^description.incorrect}}
+<input type="text" name="{{description.name}}" id="{{description.name}}" {{#description.value}}value="{{description.value}}"{{/description.value}}>
+<p class="correctText">{{description.notice}}</p>
+{{/description.incorrect}}
+{{#description.incorrect}}
+<input type="text" name="{{description.name}}" id="{{description.name}}" class="incorrectInput" {{#description.value}}value="{{description.value}}"{{/description.value}}>
+<p class="incorrectText">{{description.notice}}</p>
+{{/description.incorrect}}
+<label for="{{quantity.name}}">Quantity</label>
+{{^quantity.incorrect}}
+<input type="text" name="{{quantity.name}}" id="{{quantity.name}}" {{#quantity.value}}value="{{quantity.value}}"{{/quantity.value}}>
+<p class="correctText">{{quantity.notice}}</p>
+{{/quantity.incorrect}}
+{{#quantity.incorrect}}
+<input type="text" name="{{quantity.name}}" id="{{quantity.name}}" class="incorrectInput" {{#quantity.value}}value="{{quantity.value}}"{{/quantity.value}}>
+<p class="incorrectText">{{quantity.notice}}</p>
+{{/quantity.incorrect}}
+<label for="image">Upload image (Optional)</label>
+<input type="file" name="image" id="image" accept="image/*" hidden>
+<img src="/~husarma1/images/noImage.png"
+     class="preview"
+     alt="no preview image">
+<p>No file currently selected for upload.</p>
+<section class="attributes">
+    <h2>Add attributes for the item.</h2>
+    {{#attributes}}
+    <select name={{attr.name}} id={{attr.name}} title="select item attribute">
+        <option value="0" label="Select an attribute ...">
+            {{#value}} selected="selected"{{/value}}>Select an attribute ...
+        </option>
+        {{#attributeList}}
+        <optgroup label="{{label}}">
+            {{#value}}
+            <option value={{attribute}} {{#selected}}selected="selected"{{/selected}}>{{label}}
+            </option>
+        {{/value}}
+    {{/attributeList}}
+</optgroup>
+</select>
+<input type="text" name="{{val.name}}" id="{{val.name}}" placeholder="value" {{#val.value}}value={{val.value}}{{/val.value}}>
+<button type="submit"
+        name="remAttr"
+        value="{{attr.name}}"
+        title="Remove attribute">-</button>
+{{/attributes}}
+<button type="submit"
+        name="addAttr"
+        value="add attribute"
+        title="Add attribute">+</button>
+<input type="hidden" value="{{attrCount}}" name="attrCount">
+</section>
+<p>(If no value is set the attribute field will be ignored.)</p>
+<input type="submit" name="submit" value="Add item" title="Add item">
+</form>
+</main>
+<script src="/~husarma1/public/js/filePreview.js"></script>
+</body>
+</html>

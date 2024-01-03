@@ -1,0 +1,139 @@
+[
+    {
+        "id": "658ea2197dc05",
+        "owner": "657c7c403a8c0",
+        "name": "SMD1206-10K",
+        "category": "passives",
+        "quantity": "100",
+        "description": "SMD resistor",
+        "attributes": [
+            {
+                "attribute": "resistance",
+                "value": "10k"
+            },
+            {
+                "attribute": "power",
+                "value": "0.25W"
+            },
+            {
+                "attribute": "package",
+                "value": "1206"
+            },
+            {
+                "attribute": "tolerance",
+                "value": "\u00b15%"
+            }
+        ],
+        "imageFormat": "png"
+    },
+    {
+        "id": "658f02a861beb",
+        "owner": "657c7c403a8c0",
+        "name": "BC337-16",
+        "category": "semiconductors",
+        "quantity": "150",
+        "description": "Transistor, NPN",
+        "attributes": [
+            {
+                "attribute": "package",
+                "value": "TO92"
+            },
+            {
+                "attribute": "power",
+                "value": "0.625W"
+            }
+        ],
+        "imageFormat": "png"
+    },
+    {
+        "id": "658f06ca9307d",
+        "owner": "657c7c403a8c0",
+        "name": "NE555",
+        "category": "semiconductors",
+        "quantity": "10",
+        "description": " astable, monostable, RC timer",
+        "attributes": [
+            {
+                "attribute": "package",
+                "value": "DIP8"
+            },
+            {
+                "attribute": "frequency",
+                "value": "0.5MHz"
+            }
+        ],
+        "imageFormat": "png"
+    },
+    {
+        "id": "658fe5289c13d",
+        "owner": "657c7c403a8c0",
+        "name": "Arduino Leonardo",
+        "category": "roboticsAndPrototyping",
+        "quantity": "1",
+        "description": "development board",
+        "attributes": [
+            {
+                "attribute": "supplyVoltage",
+                "value": "5V DC"
+            },
+            {
+                "attribute": "manufacturer",
+                "value": "Arduino"
+            },
+            {
+                "attribute": "length",
+                "value": "68.85mm"
+            },
+            {
+                "attribute": "width",
+                "value": "53.34mm"
+            }
+        ],
+        "imageFormat": "jpg"
+    },
+    {
+        "id": "658fe5a9e09ba",
+        "owner": "657c7c403a8c0",
+        "name": "NUCLEO-F411RE",
+        "category": "roboticsAndPrototyping",
+        "quantity": "1",
+        "description": "Dev.kit: STM32; STM32F411RET6;",
+        "attributes": [
+            {
+                "attribute": "manufacturer",
+                "value": " STMicroelectronics"
+            }
+        ],
+        "imageFormat": ""
+    },
+    {
+        "id": "65913e771aee3",
+        "owner": "657c7c403a8c0",
+        "name": "Capacitor",
+        "category": "passives",
+        "quantity": "10",
+        "description": "cap",
+        "attributes": [
+            {
+                "attribute": "capacitance",
+                "value": "10mF"
+            }
+        ],
+        "imageFormat": ""
+    },
+    {
+        "id": "65913eb54694c",
+        "owner": "657c7c403a8c0",
+        "name": "cap 2",
+        "category": "passives",
+        "quantity": "1",
+        "description": "capacitor 2",
+        "attributes": [
+            {
+                "attribute": "capacitance",
+                "value": "10F"
+            }
+        ],
+        "imageFormat": "jpg"
+    }
+]

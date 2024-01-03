@@ -1,0 +1,74 @@
+[
+    {
+        "category": "semiconductors",
+        "label": "Semiconductors"
+    },
+    {
+        "category": "embeddedAndIoTSystems",
+        "label": "Embedded and IoT systems"
+    },
+    {
+        "category": "optoelectronics",
+        "label": "Optoelectronics"
+    },
+    {
+        "category": "lightSources",
+        "label": "Light sources"
+    },
+    {
+        "category": "passives",
+        "label": "Passives"
+    },
+    {
+        "category": "connectors",
+        "label": "Connectors"
+    },
+    {
+        "category": "fusesAndCircuitBreakers",
+        "label": "Fuses and Circuit Breakers"
+    },
+    {
+        "category": "switchesAndIndicators",
+        "label": "Switches and Indicators"
+    },
+    {
+        "category": "soundSources",
+        "label": "Sound Sources"
+    },
+    {
+        "category": "relaysAndContactors",
+        "label": "Relays and Contactors"
+    },
+    {
+        "category": "transformersAndFerriteCores",
+        "label": "Transformers and Ferrite Cores"
+    },
+    {
+        "category": "fansCoolingAndHeatingSystems",
+        "label": "Fans, Cooling and Heating Systems"
+    },
+    {
+        "category": "powerSources",
+        "label": "Power Sources"
+    },
+    {
+        "category": "wiresAndCables",
+        "label": "Wires and Cables"
+    },
+    {
+        "category": "mechanical",
+        "label": "Mechanical"
+    },
+    {
+        "category": "enclosures",
+        "label": "Enclosures"
+    },
+    {
+        "category": "computerAccessories",
+        "label": "Computer Accessories"
+    },
+    {
+        "category": "roboticsAndPrototyping",
+        "label": "Robotics and Prototyping"
+    }
+]
