@@ -20,7 +20,6 @@ $common = function () {
 
     $data = [];
     $data["user"] = $user;
-    $data["title"] = "Add item";
     $data["categoryList"] = getCategories();
 
     $data["category"] = new formInput("category");
@@ -72,14 +71,6 @@ $common = function () {
         }
     }
 
-    // mark the last selected value as selected
-    if ($data["category"]->value) {
-        foreach ($data["categoryList"] as &$li) {
-            if ($data["category"]->value == $li["category"]) {
-                $li["selected"] = "selected";
-            }
-        }
-    }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST["addAttr"])) {
@@ -112,6 +103,18 @@ $common = function () {
                 $data["quantity"]->notice = "Quantity must be a number.";
                 $data["quantity"]->incorrect = true;
             }
+        } else if ($data["quantity"]->value == 0) {
+            $data["quantity"]->value = "\r0"; // little trick to make mustache accept 0 as "true" value
+            unset($data["quantity"]->incorrect);
+            unset($data["quantity"]->notice);
+        }
+    }
+    // mark the last selected value as selected
+    if ($data["category"]->value) {
+        foreach ($data["categoryList"] as &$li) {
+            if ($data["category"]->value == $li["category"]) {
+                $li["selected"] = "selected";
+            }
         }
     }
 
@@ -137,6 +140,7 @@ function add()
 
     global $common;
     $data = $common();
+    $data["title"] = "Add item";
 
     if (
         isset($_POST["submit"])
@@ -146,10 +150,14 @@ function add()
         && !isset($data["quantity"]->incorrect)
     ) {
         // assemble attributes to copatible pack
-        foreach ($data["attributes"] as $attribute) {
-            // only accept attributes with valid value
-            if ($attribute["attr"]["value"] && $attribute["val"]["value"]) {
-                $itemAttrs[] = ["attribute" => $attribute["attr"]["value"], "value" => $attribute["val"]["value"]];
+        if (sizeof($data["attributes"])) {
+            foreach ($data["attributes"] as $attribute) {
+                // only accept attributes with valid value
+                if (isset($attribute["attr"]["value"]) && isset($attribute["val"]["value"])) {
+                    if ($attribute["attr"]["value"] && $attribute["val"]["value"]) {
+                        $itemAttrs[] = ["attribute" => $attribute["attr"]["value"], "value" => $attribute["val"]["value"]];
+                    }
+                }
             }
         }
 
@@ -157,12 +165,12 @@ function add()
             // TODO check file type
             //  $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);4
             $fmt = strtolower(pathinfo($_FILES["image"]['name'], PATHINFO_EXTENSION));
-            $id = addItem($data["name"]->value, $_SESSION["id"], $data["category"]->value, $data["quantity"]->value, $data["description"]->value,  $itemAttrs, $fmt);
+            $id = addItem($data["name"]->value, $_SESSION["id"], $data["category"]->value, $data["quantity"]->value, $data["description"]->value, ((isset($itemAttrs)) ? $itemAttrs : []), $fmt);
             // TODO resize image (250x250)?
             move_uploaded_file($_FILES["image"]["tmp_name"], "images/" . $id . "." . $fmt);
         } else {
             // add item without image
-            $id = addItem($data["name"]->value, $_SESSION["id"], $data["category"]->value, $data["quantity"]->value, $data["description"]->value,  $itemAttrs);
+            $id = addItem($data["name"]->value, $_SESSION["id"], $data["category"]->value, $data["quantity"]->value, $data["description"]->value, ((isset($itemAttrs)) ? $itemAttrs : []));
         }
 
         header("location: /~husarma1/item/details/?id=" . $id); // redirect user to page with newly created item
@@ -170,7 +178,7 @@ function add()
     }
 
 
-    $template = file_get_contents('views/header.mustache') . file_get_contents('views/itemAdd.mustache');
+    $template = file_get_contents('views/header.mustache') . file_get_contents('views/itemAdd.mustache') . file_get_contents('views/footer.mustache');
     $mustache = new \Mustache_Engine(array('entity_flags' => ENT_QUOTES));
     echo $mustache->render($template, $data);
 }
@@ -191,7 +199,7 @@ function edit()
     }
     // get logged user
     if (!isset($_SESSION["id"])) {
-        setcookie("afterLogin", "/~husarma1/" . basename(__FILE__, '.php') . "/", time() + 60 * 5, "/"); // 5 minute expiration
+        setcookie("afterLogin", "/~husarma1/" . basename(__FILE__, '.php') . "/edit/?id=" . $_GET["id"], time() + 60 * 5, "/"); // 5 minute expiration
         header("location: /~husarma1/login/");
         die();
     }
@@ -208,6 +216,7 @@ function edit()
     global $common;
     global $returnFileSize;
     $data = $common();
+    $data["title"] = "Edit item";
     $data["item"] = $item;
 
 
@@ -276,10 +285,14 @@ function edit()
         && !isset($data["quantity"]->incorrect)
     ) {
         // assemble attributes to copatible pack
-        foreach ($data["attributes"] as $attribute) {
-            // only accept attributes with valid value
-            if ($attribute["attr"]["value"] && $attribute["val"]["value"]) {
-                $itemAttrs[] = ["attribute" => $attribute["attr"]["value"], "value" => $attribute["val"]["value"]];
+        if (sizeof($data["attributes"])) {
+            foreach ($data["attributes"] as $attribute) {
+                // only accept attributes with valid value
+                if (isset($attribute["attr"]["value"]) && isset($attribute["val"]["value"])) {
+                    if ($attribute["attr"]["value"] && $attribute["val"]["value"]) {
+                        $itemAttrs[] = ["attribute" => $attribute["attr"]["value"], "value" => $attribute["val"]["value"]];
+                    }
+                }
             }
         }
 
@@ -287,26 +300,74 @@ function edit()
             // TODO check file type
             //  $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);4
 
-            unlink(("images/" . $item["id"] . "." . $item["imageFormat"])); // remove old file
+            if ($item["imageFormat"]) {
+                unlink(("images/" . $item["id"] . "." . $item["imageFormat"])); // remove old file
+            }
+            // TODO resize image (250x250)?
+            // Path to save the uploaded image
             $fmt = strtolower(pathinfo($_FILES["image"]['name'], PATHINFO_EXTENSION));
+            $targetPath = "images/" . $item["id"] . "." . $fmt;
+
+            // Move the uploaded file to the target path
+            move_uploaded_file($_FILES["image"]["tmp_name"], $targetPath);
+            // Load the original image
+            if ($fmt == "jpg" || $fmt == "jpeg") {
+                $originalImage = imagecreatefromjpeg($targetPath);
+            } elseif ($fmt == "png") {
+                $originalImage = imagecreatefrompng($targetPath);
+            }
+
+            // Get the original image dimensions
+            $originalWidth = imagesx($originalImage);
+            $originalHeight = imagesy($originalImage);
+
+            // Determine the crop size to achieve a 1:1 ratio
+            $cropSize = min($originalWidth, $originalHeight);
+
+            // Calculate the crop position for center alignment
+            $cropX = ($originalWidth - $cropSize) / 2;
+            $cropY = ($originalHeight - $cropSize) / 2;
+
+            // Create a new image with the desired size
+            $newWidth = $newHeight = 500;
+            $newImage = imagecreatetruecolor($newWidth, $newHeight);
+
+            // Crop and resize the image
+            imagecopyresampled($newImage, $originalImage, 0, 0, $cropX, $cropY, $newWidth, $newHeight, $cropSize, $cropSize);
+
+            // Save the resized and cropped image back to the target path
+            if ($fmt == "jpg" || $fmt == "jpeg") {
+                imagejpeg($newImage, $targetPath, 90); // Adjust quality as needed
+            } elseif ($fmt == "png") {
+                imagepng($newImage, $targetPath, 9); // Adjust compression level as needed
+            }
+
+
+            // Free up memory
+            imagedestroy($originalImage);
+            imagedestroy($newImage);
+
             $item["name"] = $data["name"]->value;
             $item["category"] = $data["category"]->value;
             $item["quantity"] = $data["quantity"]->value;
             $item["description"] = $data["description"]->value;
-            $item["attributes"] = $itemAttrs;
+            if (isset($itemAttrs)) {
+                $item["attributes"] = $itemAttrs;
+            }
             $item["imageFormat"] = $fmt;
 
 
             editItem($item);
-            // TODO resize image (250x250)?
-            move_uploaded_file($_FILES["image"]["tmp_name"], "images/" . $item["id"] . "." . $fmt);
         } else {
             // edit item without changing image
             $item["name"] = $data["name"]->value;
             $item["category"] = $data["category"]->value;
             $item["quantity"] = $data["quantity"]->value;
             $item["description"] = $data["description"]->value;
-            $item["attributes"] = $itemAttrs;
+            if (isset($itemAttrs)) {
+                $item["attributes"] = $itemAttrs;
+            }
+
 
             editItem($item);
         }
@@ -316,7 +377,7 @@ function edit()
     }
 
 
-    $template = file_get_contents('views/header.mustache') . file_get_contents('views/itemEdit.mustache');
+    $template = file_get_contents('views/header.mustache') . file_get_contents('views/itemEdit.mustache') . file_get_contents('views/footer.mustache');
     $mustache = new \Mustache_Engine(array('entity_flags' => ENT_QUOTES));
     echo $mustache->render($template, $data);
 }
@@ -364,7 +425,7 @@ function details()
     $data["owner"] = $owner;
 
 
-    $template = file_get_contents('views/header.mustache') . file_get_contents('views/itemDetails.mustache');
+    $template = file_get_contents('views/header.mustache') . file_get_contents('views/itemDetails.mustache') . file_get_contents('views/footer.mustache');
     $mustache = new \Mustache_Engine(array('entity_flags' => ENT_QUOTES));
     echo $mustache->render($template, $data);
 }

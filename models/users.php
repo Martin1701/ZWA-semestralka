@@ -1,13 +1,4 @@
 <?php
-// AJAX request reply
-if (isset($_GET["login"])) {
-    if (existsUser($_GET["login"])) {
-        echo json_encode(true);
-    } else {
-        echo json_encode(false);
-    }
-}
-
 // *** database manipulation functions ***
 
 function existsUser($login)

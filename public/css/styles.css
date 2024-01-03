@@ -16,6 +16,11 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+html,
+body {
+    height: 100%;
+}
+
 .main-page-navigation {
     height: 2rem;
     display: flex;
@@ -42,13 +47,13 @@ body {
     background-repeat: no-repeat;
     background-position: right bottom;
 
-    transition: background-size 100ms ease-out;
+    transition: background-size 150ms ease-in;
 }
 
 .main-page-navigation>a:hover {
     background-size: 100% 2px;
     background-position: left bottom;
-    transition: background-size 100ms ease-in;
+    transition: background-size 150ms ease-out;
 }
 
 .main-page-navigation>a:focus {
@@ -171,13 +176,16 @@ header {
 }
 
 body>main {
-    display: grid;
-    grid-template-columns: 15rem auto 15rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     padding: 2rem 0;
+    min-height: calc(100% - 12.3rem);
 }
 
 .categories {
-    grid-column: 2;
+    width: 80%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-row-gap: 1rem;
@@ -215,24 +223,61 @@ body>main {
 .user-form,
 .item-info {
     display: grid;
-    grid-column: 2;
     justify-self: center;
     border: .2rem solid var(--glaucous);
     border-radius: 1rem;
-    width: 70%;
+    width: 50%;
 }
 
 .searchResult {
-    display: grid;
-    grid-column: 2;
+    width: 80%;
     justify-self: center;
+}
+
+.searchResult h2 {
+    text-align: left;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.search-categories {
+    margin-bottom: 2rem;
+}
+
+.search-categories>li {
+    list-style-type: none;
+    margin-bottom: .5rem;
+}
+
+.search-categories a {
+    font-size: 1.2rem;
+    text-decoration: none;
+    background-image: linear-gradient(90deg, var(--marian-blue), var(--marian-blue));
+    background-size: 0% 2px;
+    background-repeat: no-repeat;
+    background-position: right bottom;
+
+    transition: background-size 150ms ease-in;
+}
+
+.search-categories a:hover {
+    background-size: 100% 2px;
+    background-position: left bottom;
+    transition: background-size 150ms ease-out;
+}
+
+
+
+.search-items {
+    display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-row-gap: 2rem;
     grid-column-gap: 2rem;
     width: 100%;
 }
 
-.searchResult>li {
+.search-items li {
+    list-style-type: none;
     display: grid;
     grid-template-columns: auto 1fr;
     grid-template-rows: repeat(2, 1fr);
@@ -245,7 +290,7 @@ body>main {
     grid-column-gap: 1rem;
 }
 
-.searchResult>li>img {
+.search-items li>img {
     aspect-ratio: 1/1;
     height: 6rem;
     object-fit: cover;
@@ -253,13 +298,34 @@ body>main {
     grid-row: 1 / span 2;
 }
 
-.searchResult>li>a {
+.searchResult li a {
     text-decoration: none;
     color: var(--marian-blue);
-    text-shadow: black .5px 0px 1px;
+    font-weight: 600;
+}
+
+.searchResult nav {
+    padding: 0 40%;
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    column-gap: 1rem;
+}
+
+.searchResult nav * {
+    font-size: 1.5rem;
+    text-decoration: none;
+    text-align: center;
+    color: var(--marian-blue);
+    background-color: lightgray;
+    border-radius: .5rem;
+    padding: 6px;
+    border: 2px solid gray;
 }
 
 .item-info {
+    width: 50%;
     grid-template-columns: repeat(2, 1fr);
     overflow: hidden;
 }
@@ -449,7 +515,7 @@ body>main {
     font-size: 1.5rem;
 }
 
-.user-form>p {
+.user-form>p.info {
     margin-left: 10%;
 }
 
@@ -509,4 +575,31 @@ body>main {
     background-repeat: no-repeat;
     background-position: center bottom;
     transition: background-size 200ms ease-out;
+}
+
+footer {
+    height: 2rem;
+    width: 100%;
+    background-color: var(--ash-gray);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 3rem;
+}
+
+footer a {
+    color: black;
+    text-decoration: none;
+    background-image: linear-gradient(90deg, black, black);
+    background-size: 0% 2px;
+    background-repeat: no-repeat;
+    background-position: right bottom;
+
+    transition: background-size 150ms ease-in;
+}
+
+footer a:hover {
+    background-size: 100% 2px;
+    background-position: left bottom;
+    transition: background-size 150ms ease-out;
 }

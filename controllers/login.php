@@ -56,7 +56,7 @@ function basic()
 
 
 
-    $template = file_get_contents('views/header.mustache') . file_get_contents('views/login.mustache');
+    $template = file_get_contents('views/header.mustache') . file_get_contents('views/login.mustache') . file_get_contents('views/footer.mustache');
     $mustache = new \Mustache_Engine(array('entity_flags' => ENT_QUOTES));
     echo $mustache->render($template, $data);
 }

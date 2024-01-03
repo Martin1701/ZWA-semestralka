@@ -42,8 +42,10 @@ async function validateLogin(e) {
     if (e.target.value) {
         [notice, isValid] = validate_input(e.target.value, 4, 30, name);
         if (isValid) {
-            const response = await fetch(`https://zwa.toad.cz/~husarma1/users.php?login=${encodeURIComponent(e.target.value)}`, { mode: 'no-cors' });
+            const response = await fetch(`https://zwa.toad.cz/~husarma1/check/loginExists/?login=${encodeURIComponent(e.target.value)}`, { mode: 'no-cors' });
+            console.log(response);
             const exists = await response.json();
+
             if (exists) {
                 isValid = false;
                 notice = "Username already in use."

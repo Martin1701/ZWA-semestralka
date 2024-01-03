@@ -17,7 +17,7 @@ function basic()
 
 
     $data = [];
-    $data["title"] = "Register";
+    $data["title"] = "User settings";
     $user = getUser($_SESSION["id"]);
     $data["user"] = $user;
 
@@ -129,7 +129,7 @@ function basic()
     $data["password2"] = $password2;
 
 
-    $template = file_get_contents('views/header.mustache') . file_get_contents('views/userSettings.mustache');
+    $template = file_get_contents('views/header.mustache') . file_get_contents('views/userSettings.mustache') . file_get_contents('views/footer.mustache');
     $mustache = new \Mustache_Engine(array('entity_flags' => ENT_QUOTES));
     echo $mustache->render($template, $data);
 }

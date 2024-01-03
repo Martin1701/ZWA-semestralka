@@ -23,7 +23,7 @@ function saveItems($items)
 }
 // $attributes -> array of arrays containing: ["attribute name", "attribute value"]
 // returns items id
-function addItem($name, $owner, $category, $quantity, $description,  $attributes, $imageFormat = "")
+function addItem($name, $owner, $category, $quantity, $description,  $attributes = [], $imageFormat = "")
 {
     $all = listItems();
     $id = uniqid();

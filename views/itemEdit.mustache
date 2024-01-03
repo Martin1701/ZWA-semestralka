@@ -5,7 +5,7 @@
           enctype="multipart/form-data">
         <h1>Edit {{item.name}}</h1>
         <h2>You can edit information here.</h2>
-        <label for={{category.name}}>Category of the item
+        <label for={{category.name}}>Category of the item*
         </label>
         <select name={{category.name}} id={{category.name}} {{#category.incorrect}}class="incorrectInput"{{/category.incorrect}}  title="select item category">
             <option value="0" label="Select a category ...">
@@ -24,7 +24,7 @@
 {{#category.incorrect}}
 <p class="incorrectText">{{category.notice}}</p>
 {{/category.incorrect}}
-<label for="{{name.name}}">Item name</label>
+<label for="{{name.name}}">Item name*</label>
 {{^name.incorrect}}
 <input type="text" name="{{name.name}}" id="{{name.name}}" {{#name.value}}value="{{name.value}}"{{/name.value}}>
 <p class="correctText">{{name.notice}}</p>
@@ -33,7 +33,7 @@
 <input type="text" name="{{name.name}}" id="{{name.name}}" class="incorrectInput" {{#name.value}}value="{{name.value}}"{{/name.value}}>
 <p class="incorrectText">{{name.notice}}</p>
 {{/name.incorrect}}
-<label for="{{description.name}}">Description</label>
+<label for="{{description.name}}">Description*</label>
 {{^description.incorrect}}
 <input type="text" name="{{description.name}}" id="{{description.name}}" {{#description.value}}value="{{description.value}}"{{/description.value}}>
 <p class="correctText">{{description.notice}}</p>
@@ -42,7 +42,7 @@
 <input type="text" name="{{description.name}}" id="{{description.name}}" class="incorrectInput" {{#description.value}}value="{{description.value}}"{{/description.value}}>
 <p class="incorrectText">{{description.notice}}</p>
 {{/description.incorrect}}
-<label for="{{quantity.name}}">Quantity</label>
+<label for="{{quantity.name}}">Quantity*</label>
 {{^quantity.incorrect}}
 <input type="text" name="{{quantity.name}}" id="{{quantity.name}}" {{#quantity.value}}value="{{quantity.value}}"{{/quantity.value}}>
 <p class="correctText">{{quantity.notice}}</p>
@@ -57,13 +57,13 @@
 <img src="/~husarma1/images/{{item.id}}.{{item.imageFormat}}"
      class="preview"
      alt="{{item.name}} image">
-<p>File size: {{fileSize}}</p>
+<p class="info">File size: {{fileSize}}</p>
 {{/item.imageFormat}}
 {{^item.imageFormat}}
 <img src="/~husarma1/images/noImage.png"
      class="preview"
      alt="no preview image">
-<p>No file currently selected for upload.</p>
+<p class="info">No file currently selected for upload.</p>
 {{/item.imageFormat}}
 <section class="attributes">
     <h2>Edit attributes for the item.</h2>
@@ -93,11 +93,9 @@
         title="Add attribute">+</button>
 <input type="hidden" value="{{attrCount}}" name="attrCount">
 </section>
-<p>(If no value is set the attribute field will be ignored.)</p>
+<p class="info">(If no value is set the attribute field will be ignored.)</p>
 <input type="submit" name="delete" value="Delete item" title="Delete item">
-<input type="submit" name="submit" value="Add item" title="Add item">
+<input type="submit" name="submit" value="Save changes" title="Add item">
 </form>
 </main>
 <script src="/~husarma1/public/js/filePreview.js"></script>
-</body>
-</html>

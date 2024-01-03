@@ -9,6 +9,7 @@
         "inductance": "Inductance",
         "capacitance": "Capacitance",
         "frequency": "Frequency",
+        "clockFrequency": "Clock frequency",
         "temperatureCoefficient": "Temperature Coefficient",
         "dielectricStrength": "Dielectric Strength",
         "impedance": "Impedance",

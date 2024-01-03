@@ -1,19 +1,46 @@
 <main>
-    <ul class="searchResult">
-        {{#listItems}}
-        <li>
-            {{#item.imageFormat}}
-            <img src="/~husarma1/images/{{item.id}}.{{item.imageFormat}}"
-                 alt="{{item.name}} image">
-        {{/item.imageFormat}}
-        {{^item.imageFormat}}
-        <img src="/~husarma1/images/noImage.png" alt="No image">
+    <section class="searchResult">
+        {{#q}}
+        <h2>Searched phrase: "{{q}}" ({{itemCount}})</h2>
+    {{/q}}
+    {{#category}}
+    <h2>{{category}}: {{itemCount}} items</h2>
+{{/category}}
+<ul class="search-categories">
+    {{#inCategories}}
+    <li>
+        <a href="/~husarma1/katalog/?q={{q}}&category={{category}}">{{label}} ({{count}})</a>
+    </li>
+{{/inCategories}}
+</ul>
+<ul class="search-items">
+    {{#listItems}}
+    <li>
+        {{#item.imageFormat}}
+        <img src="/~husarma1/images/{{item.id}}.{{item.imageFormat}}"
+             alt="{{item.name}} image">
     {{/item.imageFormat}}
-    <a href="/~husarma1/item/details/?id={{item.id}}">{{item.name}}</a>
-    <p>Quantity: {{item.quantity}} pcs</p>
+    {{^item.imageFormat}}
+    <img src="/~husarma1/images/noImage.png" alt="No image">
+{{/item.imageFormat}}
+<a href="/~husarma1/item/details/?id={{item.id}}">{{item.name}}</a>
+<p>Quantity: {{item.quantity}} pcs</p>
 </li>
 {{/listItems}}
 </ul>
+{{#page}}
+<nav>
+    {{#prevPage}}
+    <a href="/~husarma1/katalog/?{{pageRequest}}page={{prevPage}}"><</a>
+{{/prevPage}}
+{{^prevPage}}
+<br>
+{{/prevPage}}
+<p>{{page}}</p>
+{{#nextPage}}
+<a href="/~husarma1/katalog/?{{pageRequest}}page={{nextPage}}">></a>
+{{/nextPage}}
+{{/page}}
+</nav>
+</section>
 </main>
-</body>
-</html>
