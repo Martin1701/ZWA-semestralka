@@ -94,6 +94,6 @@ Search shows you how many items were found and next to the categories is present
 
 ## Documentation
 
-[Automatically generated (phpdoc)]()
+[Automatically generated (phpdoc)](https://zwa.toad.cz/~husarma1/docs/api/index.html)
 
 [Programmer documentation](docs/README.md)
