@@ -3,7 +3,7 @@ Search.appendIndex(
                 {
             "fqsen": "\\basic\u0028\u0029",
             "name": "basic",
-            "summary": "",
+            "summary": "Handles\u0020user\u0020account\u0020edit.",
             "url": "namespaces/default.html#function_basic"
         },                {
             "fqsen": "\\loginExists\u0028\u0029",
@@ -11,39 +11,59 @@ Search.appendIndex(
             "summary": "Checks\u0020if\u0020a\u0020login\u0020exists\u0020and\u0020sends\u0020a\u0020JSON\u0020response.",
             "url": "namespaces/default.html#function_loginExists"
         },                {
+            "fqsen": "\\common\u0028\u0029",
+            "name": "common",
+            "summary": "Common\u0020function\u0020for\u0020add\u0020and\u0020edit\u0020item.",
+            "url": "namespaces/default.html#function_common"
+        },                {
             "fqsen": "\\add\u0028\u0029",
             "name": "add",
-            "summary": "",
+            "summary": "Checks\u0020validity\u0020of\u0020common\u0020item\u0020and\u0020unique\u0020item\u0020add\u0020inputs.",
             "url": "namespaces/default.html#function_add"
         },                {
             "fqsen": "\\edit\u0028\u0029",
             "name": "edit",
-            "summary": "",
+            "summary": "Checks\u0020validity\u0020of\u0020common\u0020item\u0020and\u0020unique\u0020item\u0020edit\u0020inputs.",
             "url": "namespaces/default.html#function_edit"
         },                {
             "fqsen": "\\details\u0028\u0029",
             "name": "details",
-            "summary": "",
+            "summary": "Retrieves\u0020details\u0020of\u0020the\u0020item.",
             "url": "namespaces/default.html#function_details"
+        },                {
+            "fqsen": "\\returnFileSize\u0028\u0029",
+            "name": "returnFileSize",
+            "summary": "Returns\u0020a\u0020formatted\u0020file\u0020size\u0020string.",
+            "url": "namespaces/default.html#function_returnFileSize"
+        },                {
+            "fqsen": "\\stringifyItem\u0028\u0029",
+            "name": "stringifyItem",
+            "summary": "Converts\u0020item\u0020and\u0020its\u0020properties\u0020to\u0020string",
+            "url": "namespaces/default.html#function_stringifyItem"
+        },                {
+            "fqsen": "\\compareByName\u0028\u0029",
+            "name": "compareByName",
+            "summary": "Compares\u0020item\u0020objects\u0020by\u0020their\u0020name",
+            "url": "namespaces/default.html#function_compareByName"
         },                {
             "fqsen": "\\validate_input\u0028\u0029",
             "name": "validate_input",
-            "summary": "",
+            "summary": "Validates\u0020input\u0020based\u0020on\u0020length,\u0020character\u0020types,\u0020and\u0020other\u0020criteria.",
             "url": "namespaces/default.html#function_validate_input"
         },                {
             "fqsen": "\\formInput",
             "name": "formInput",
-            "summary": "",
+            "summary": "Represents\u0020a\u0020form\u0020input\u0020element\u0020with\u0020validation\u0020capabilities.",
             "url": "classes/formInput.html"
         },                {
             "fqsen": "\\formInput\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "",
+            "summary": "Initializes\u0020a\u0020new\u0020instance\u0020of\u0020the\u0020formInput\u0020class.",
             "url": "classes/formInput.html#method___construct"
         },                {
             "fqsen": "\\formInput\u003A\u003AgetInput\u0028\u0029",
             "name": "getInput",
-            "summary": "",
+            "summary": "Gets\u0020the\u0020input\u0020value\u0020from\u0020the\u0020POST\u0020data\u0020and\u0020performs\u0020basic\u0020validation.",
             "url": "classes/formInput.html#method_getInput"
         },                {
             "fqsen": "\\formInput\u003A\u003A\u0024value",
@@ -73,7 +93,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\parseUri\u0028\u0029",
             "name": "parseUri",
-            "summary": "",
+            "summary": "Parses\u0020uri\u0020to\u0020array",
             "url": "namespaces/default.html#function_parseUri"
         },                {
             "fqsen": "\\getAttributes\u0028\u0029",
@@ -83,77 +103,77 @@ Search.appendIndex(
         },                {
             "fqsen": "\\getCategories\u0028\u0029",
             "name": "getCategories",
-            "summary": "",
+            "summary": "Retrieves\u0020a\u0020list\u0020of\u0020categories\u0020from\u0020the\u0020JSON\u0020file.",
             "url": "namespaces/default.html#function_getCategories"
         },                {
             "fqsen": "\\listItems\u0028\u0029",
             "name": "listItems",
-            "summary": "",
+            "summary": "Retrieves\u0020a\u0020list\u0020of\u0020all\u0020items\u0020from\u0020the\u0020JSON\u0020database.",
             "url": "namespaces/default.html#function_listItems"
         },                {
             "fqsen": "\\getItem\u0028\u0029",
             "name": "getItem",
-            "summary": "",
+            "summary": "Retrieves\u0020item\u0020information\u0020based\u0020on\u0020the\u0020item\u0027s\u0020ID.",
             "url": "namespaces/default.html#function_getItem"
         },                {
             "fqsen": "\\saveItems\u0028\u0029",
             "name": "saveItems",
-            "summary": "",
+            "summary": "Saves\u0020the\u0020updated\u0020list\u0020of\u0020items\u0020to\u0020the\u0020JSON\u0020database.",
             "url": "namespaces/default.html#function_saveItems"
         },                {
             "fqsen": "\\addItem\u0028\u0029",
             "name": "addItem",
-            "summary": "",
+            "summary": "Adds\u0020a\u0020new\u0020item\u0020to\u0020the\u0020database.",
             "url": "namespaces/default.html#function_addItem"
         },                {
             "fqsen": "\\deleteItem\u0028\u0029",
             "name": "deleteItem",
-            "summary": "",
+            "summary": "Deletes\u0020an\u0020item\u0020from\u0020the\u0020database\u0020based\u0020on\u0020the\u0020item\u0027s\u0020ID.",
             "url": "namespaces/default.html#function_deleteItem"
         },                {
             "fqsen": "\\editItem\u0028\u0029",
             "name": "editItem",
-            "summary": "",
+            "summary": "Edits\u0020an\u0020existing\u0020item\u0027s\u0020information\u0020in\u0020the\u0020database.",
             "url": "namespaces/default.html#function_editItem"
         },                {
             "fqsen": "\\existsUser\u0028\u0029",
             "name": "existsUser",
-            "summary": "",
+            "summary": "Checks\u0020if\u0020a\u0020user\u0020with\u0020the\u0020given\u0020login\u0020exists.",
             "url": "namespaces/default.html#function_existsUser"
         },                {
             "fqsen": "\\listUsers\u0028\u0029",
             "name": "listUsers",
-            "summary": "",
+            "summary": "Retrieves\u0020a\u0020list\u0020of\u0020all\u0020users\u0020from\u0020the\u0020JSON\u0020database.",
             "url": "namespaces/default.html#function_listUsers"
         },                {
             "fqsen": "\\getUser\u0028\u0029",
             "name": "getUser",
-            "summary": "",
+            "summary": "Retrieves\u0020user\u0020information\u0020based\u0020on\u0020the\u0020user\u0027s\u0020ID.",
             "url": "namespaces/default.html#function_getUser"
         },                {
             "fqsen": "\\getUserByLogin\u0028\u0029",
             "name": "getUserByLogin",
-            "summary": "",
+            "summary": "Retrieves\u0020user\u0020information\u0020based\u0020on\u0020the\u0020user\u0027s\u0020login.",
             "url": "namespaces/default.html#function_getUserByLogin"
         },                {
             "fqsen": "\\saveUsers\u0028\u0029",
             "name": "saveUsers",
-            "summary": "",
+            "summary": "Saves\u0020the\u0020updated\u0020list\u0020of\u0020users\u0020to\u0020the\u0020JSON\u0020database.",
             "url": "namespaces/default.html#function_saveUsers"
         },                {
             "fqsen": "\\addUser\u0028\u0029",
             "name": "addUser",
-            "summary": "",
+            "summary": "Adds\u0020a\u0020new\u0020user\u0020to\u0020the\u0020database.",
             "url": "namespaces/default.html#function_addUser"
         },                {
             "fqsen": "\\deleteUser\u0028\u0029",
             "name": "deleteUser",
-            "summary": "",
+            "summary": "Deletes\u0020a\u0020user\u0020from\u0020the\u0020database\u0020based\u0020on\u0020the\u0020user\u0027s\u0020ID.",
             "url": "namespaces/default.html#function_deleteUser"
         },                {
             "fqsen": "\\editUser\u0028\u0029",
             "name": "editUser",
-            "summary": "",
+            "summary": "Edits\u0020an\u0020existing\u0020user\u0027s\u0020information\u0020in\u0020the\u0020database.",
             "url": "namespaces/default.html#function_editUser"
         },                {
             "fqsen": "\\",

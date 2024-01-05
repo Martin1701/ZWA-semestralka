@@ -1,12 +1,21 @@
 <?php
 
+/**
+ * @author Martin Husár
+ * @author Martin Husár <husarma1@fel.cvut.cz>
+ */
 require_once 'mustache/src/Mustache/Autoloader.php';
 Mustache_Autoloader::register();
 require_once "models/users.php";
 require_once "models/categories.php";
 require_once "libs/form_libs.php";
 
-
+/**
+ * Handles user account edit.
+ * If values user wishes to change are correct, edits the account.
+ * 
+ * @return void
+ */
 function basic()
 {
     if (!isset($_SESSION["id"])) {

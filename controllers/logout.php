@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * @author Martin Husár
+ * @author Martin Husár <husarma1@fel.cvut.cz>
+ */
+
+/**
+ * Logs-out the user.
+ * If user is redirected to logout from another page and afterLogout cookie is set, redirects him to that page, otherwise redirects to main.
+ * 
+ * @return void
+ */
 function basic()
 {
     unset($_SESSION["id"]);

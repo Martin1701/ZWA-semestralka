@@ -1,10 +1,19 @@
 <?php
+
+/**
+ * @author Martin Husár
+ * @author Martin Husár <husarma1@fel.cvut.cz>
+ */
 require_once 'mustache/src/Mustache/Autoloader.php';
 Mustache_Autoloader::register();
 require_once('models/users.php');
 require_once('models/categories.php');
 
-
+/**
+ * Retrieves list of categories and shows them on main page.
+ * 
+ * @return void
+ */
 function basic()
 {
     $data = [];

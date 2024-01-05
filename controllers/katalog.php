@@ -1,14 +1,24 @@
 <?php
+
+/**
+ * @author Martin Husár
+ * @author Martin Husár <husarma1@fel.cvut.cz>
+ */
 require_once 'mustache/src/Mustache/Autoloader.php';
 Mustache_Autoloader::register();
 require_once('models/users.php');
 require_once('models/categories.php');
 require_once('models/items.php');
 
-
-// Function to stringify item
-$stringifyItem = function ($object) {
-    global $stringifyItem;
+/**
+ * Converts item and its properties to string
+ *
+ * @param object $object The item object
+ *
+ * @return string Containing all values except the excluded ones
+ */
+function stringifyItem($object)
+{
     $excluded = ["id", "owner", "imageFormat", "category", "quantity"];
     $values = [];
     foreach ($object as $key => $value) {
@@ -24,14 +34,27 @@ $stringifyItem = function ($object) {
         }
     }
     return strtolower(implode(" ", $values));
-};
-$compareByName = function ($a, $b) {
+}
+
+/**
+ * Compares item objects by their name
+ *
+ * @param object $a item#1
+ * @param object $b item#2
+ * 
+ * @return int less 0 if $a is less than $b; > 0 if $a is greater than $b, and 0 if they are equal.
+ */
+function compareByName($a, $b)
+{
     return strcmp($a['item']['name'], $b['item']['name']);
 };
-
+/**
+ * Shows search results, depenging on category and search query in request.
+ * 
+ * @return void
+ */
 function basic()
 {
-    global $stringifyItem;
     $data = [];
     $data["title"] = "Katalog";
 
@@ -59,9 +82,6 @@ function basic()
         include "views/notFound.html";
         die();
     }
-
-
-
     // go through query if it is set
     if (isset($_GET["q"])) {
         $data["q"] = $_GET["q"];
@@ -69,7 +89,7 @@ function basic()
         $q = strtolower($_GET["q"]);
 
         foreach (listItems() as &$item) {
-            if (str_contains($stringifyItem($item), $q)) {
+            if (str_contains(stringifyItem($item), $q)) {
                 $items[] = ["item" => $item]; // item matches the search, add
             }
         }
@@ -129,10 +149,9 @@ function basic()
     }
     if (isset($items)) {
         // Custom comparison function for sorting
-        global $compareByName;
 
         // Sort the array using the custom comparison function
-        usort($items, $compareByName);
+        usort($items, "compareByName");
         $perPage = 9;
 
         if (isset($_GET["page"])) {

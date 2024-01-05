@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * @author Martin Husár
+ * @author Martin Husár <husarma1@fel.cvut.cz>
+ */
 require_once 'mustache/src/Mustache/Autoloader.php';
 Mustache_Autoloader::register();
 require_once('libs/form_libs.php');
@@ -7,15 +12,24 @@ require_once('models/categories.php');
 require_once('models/attributes.php');
 require_once('models/items.php');
 
-
+/**
+ * Redirects user to add item page.
+ * 
+ * @return void
+ */
 function basic()
 {
     header("location: ./add/");
 }
 
-// common function for add and edit item
-// handles input fields
-$common = function () {
+/**
+ * Common function for add and edit item.
+ * Handles reading from request and validating common form input fields.
+ * 
+ * @return object $data object containing form data and its validity and incorrect input notices
+ */
+function common()
+{
     $user = getUser($_SESSION["id"]);
 
     $data = [];
@@ -139,7 +153,7 @@ $common = function () {
     if (isset($_FILES["image"])) {
         if ($_FILES["image"]["error"] == UPLOAD_ERR_OK) {
             $fmt = strtolower(pathinfo($_FILES["image"]['name'], PATHINFO_EXTENSION));
-            if ($fmt != "png" && $fmt != "png") {
+            if ($fmt != "png" && $fmt != "jpg" && $fmt != "jpeg") {
                 $data["image"]->incorrect = true;
                 $data["image"]->notice = "Not a valid file type.";
             }
@@ -152,7 +166,11 @@ $common = function () {
     return $data;
 };
 
-
+/**
+ * Checks validity of common item and unique item add inputs.
+ * Adds item if everything is valid
+ * @return void
+ */
 function add()
 {
     if (!isset($_SESSION["id"])) {
@@ -161,8 +179,7 @@ function add()
         die();
     }
 
-    global $common;
-    $data = $common();
+    $data = common();
     $data["title"] = "Add item";
 
     if (
@@ -244,7 +261,11 @@ function add()
     echo $mustache->render($template, $data);
 }
 
-
+/**
+ * Checks validity of common item and unique item edit inputs.
+ * Edits item if everything is valid
+ * @return void
+ */
 function edit()
 {
     // get item, redirect user to main page if no id is set or if the item does not exist
@@ -274,9 +295,7 @@ function edit()
         die();
     }
 
-    global $common;
-    global $returnFileSize;
-    $data = $common();
+    $data = common();
     $data["title"] = "Edit item";
     $data["item"] = $item;
 
@@ -300,7 +319,7 @@ function edit()
         $data["quantity"]->value = $item["quantity"];
 
         if ($item["imageFormat"]) {
-            $data["fileSize"] = $returnFileSize(filesize("public/images/" . $item["id"] . "." . $item["imageFormat"]));
+            $data["fileSize"] = returnFileSize(filesize("public/images/" . $item["id"] . "." . $item["imageFormat"]));
         }
 
         // pre-select category
@@ -440,7 +459,11 @@ function edit()
     echo $mustache->render($template, $data);
 }
 
-
+/**
+ * Retrieves details of the item.
+ * 
+ * @return void
+ */
 function details()
 {
     // if no ID is set, return user to main page
@@ -488,13 +511,20 @@ function details()
     echo $mustache->render($template, $data);
 }
 
-
-$returnFileSize = function ($number) {
-    if ($number < 1024) {
-        return $number .  "bytes";
-    } else if ($number >= 1024 && $number < 1048576) {
-        return round($number / 1024, 1) . "KB";
-    } else if ($number >= 1048576) {
-        return round($number / 1048576) . "MB";
+/**
+ * Returns a formatted file size string.
+ *
+ * @param int $bytes The file size in bytes.
+ *
+ * @return string Formatted file size string (e.g., "123 bytes", "1.5 KB", "2 MB").
+ */
+function returnFileSize($bytes)
+{
+    if ($bytes < 1024) {
+        return $bytes .  " bytes";
+    } else if ($bytes >= 1024 && $bytes < 1048576) {
+        return round($bytes / 1024, 1) . " KB";
+    } else if ($bytes >= 1048576) {
+        return round($bytes / 1048576) . " MB";
     }
 };

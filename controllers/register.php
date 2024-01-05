@@ -1,12 +1,20 @@
 <?php
 
+/**
+ * @author Martin Husár
+ * @author Martin Husár <husarma1@fel.cvut.cz>
+ */
 require_once 'mustache/src/Mustache/Autoloader.php';
 Mustache_Autoloader::register();
 require_once "models/users.php";
 require_once "models/categories.php";
 require_once "libs/form_libs.php";
 
-
+/**
+ * Handles user register, getting data from request, validating them and creating account if all values are valid
+ * 
+ * @return void
+ */
 function basic()
 {
     $data = [];
