@@ -54,13 +54,13 @@
 <label for="image">Change image</label>
 <input type="file" name="image" id="image" accept="image/*" hidden>
 {{#item.imageFormat}}
-<img src="/~husarma1/images/{{item.id}}.{{item.imageFormat}}"
+<img src="/~husarma1/public/images/{{item.id}}.{{item.imageFormat}}"
      class="preview"
      alt="{{item.name}} image">
 <p class="info">File size: {{fileSize}}</p>
 {{/item.imageFormat}}
 {{^item.imageFormat}}
-<img src="/~husarma1/images/noImage.png"
+<img src="/~husarma1/public/images/noImage.png"
      class="preview"
      alt="no preview image">
 <p class="info">No file currently selected for upload.</p>
@@ -99,3 +99,5 @@
 </form>
 </main>
 <script src="/~husarma1/public/js/filePreview.js"></script>
+<script src="/~husarma1/public/js/validationStyle.js"></script>
+<script src="/~husarma1/public/js/itemAddValidation.js"></script>

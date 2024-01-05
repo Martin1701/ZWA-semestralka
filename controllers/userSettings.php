@@ -31,10 +31,6 @@ function basic()
 
 
 
-
-
-
-
     if (isset($_POST["submit"])) {
         $changesMade = false;
         if ($fName->getInput() && $fName->value != $user["fName"]) {
@@ -100,15 +96,16 @@ function basic()
 
         // checking for incorrect because original value is always valid and I don't want to check it each time
         if (
-            $changesMade
-            && !isset($fName->incorrect)
+            !isset($fName->incorrect)
             && !isset($lName->incorrect)
             && !isset($login->incorrect)
             && !isset($passwordCur->incorrect)
             && !isset($password->incorrect)
             && !isset($password2->incorrect)
         ) {
-            editUser($user);
+            if ($changesMade) {
+                editUser($user);
+            }
             header("location: /~husarma1/");
             die();
         }

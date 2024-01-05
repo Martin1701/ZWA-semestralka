@@ -25,7 +25,9 @@ $stringifyItem = function ($object) {
     }
     return strtolower(implode(" ", $values));
 };
-
+$compareByName = function ($a, $b) {
+    return strcmp($a['item']['name'], $b['item']['name']);
+};
 
 function basic()
 {
@@ -126,11 +128,19 @@ function basic()
         }
     }
     if (isset($items)) {
-        // TODO sort items (by amount ? aplhabet, whatever)
+        // Custom comparison function for sorting
+        global $compareByName;
+
+        // Sort the array using the custom comparison function
+        usort($items, $compareByName);
         $perPage = 9;
 
         if (isset($_GET["page"])) {
             $data["page"] = $_GET["page"];
+            if ($data["page"] < 1) {
+                // handle negative pages
+                $data["page"] = 1;
+            }
             $index = ($data["page"] - 1) * $perPage;
             $data["listItems"] = array_slice($items, $index, $perPage);
         } else {

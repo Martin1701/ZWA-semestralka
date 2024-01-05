@@ -48,7 +48,7 @@
 <p class="correctText">{{password.notice}}</p>
 {{/password.incorrect}}
 {{#password.incorrect}}
-<input type="text"
+<input type="password"
        name="{{password.name}}"
        id="{{password.name}}"
        class="incorrectInput">
@@ -68,7 +68,7 @@
 <p class="correctText">{{password2.notice}}</p>
 {{/password2.incorrect}}
 {{#password2.incorrect}}
-<input type="text"
+<input type="password"
        name="{{password2.name}}"
        id="{{password2.name}}"
        class="incorrectInput">
@@ -77,4 +77,5 @@
 <input type="submit" name="submit" value="Register" title="Register">
 </form>
 </main>
+<script src="/~husarma1/public/js/validationStyle.js"></script>
 <script src="/~husarma1/public/js/registerValidation.js"></script>

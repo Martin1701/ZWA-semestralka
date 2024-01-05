@@ -52,11 +52,16 @@
 <p class="incorrectText">{{quantity.notice}}</p>
 {{/quantity.incorrect}}
 <label for="image">Upload image (Optional)</label>
-<input type="file" name="image" id="image" accept="image/*" hidden>
-<img src="/~husarma1/images/noImage.png"
+<input type="file" name="image" id="image" accept=".png, .jpg, .jpeg" hidden>
+<img src="/~husarma1/public/images/noImage.png"
      class="preview"
      alt="no preview image">
+{{#image.incorrect}}
+<p class="info incorrectText">{{image.notice}}</p>
+{{/image.incorrect}}
+{{^image.incorrect}}
 <p class="info">No file currently selected for upload.</p>
+{{/image.incorrect}}
 <section class="attributes">
     <h2>Add attributes for the item.</h2>
     {{#attributes}}
@@ -90,3 +95,5 @@
 </form>
 </main>
 <script src="/~husarma1/public/js/filePreview.js"></script>
+<script src="/~husarma1/public/js/validationStyle.js"></script>
+<script src="/~husarma1/public/js/itemAddValidation.js"></script>

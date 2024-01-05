@@ -13,7 +13,7 @@
         <nav class="main-page-navigation">
             <a href="/~husarma1/">
                 <svg class="svg-icon svg-icon-small" viewBox="0 0 24 24">
-                    <use xlink:href="/~husarma1/svg/home.svg#home-svg"></use>
+                    <use xlink:href="/~husarma1/public/svg/home.svg#home-svg"></use>
                 </svg>
             Home</a>
             {{#user}}
@@ -23,25 +23,25 @@
         {{^user}}
         <a href="/~husarma1/login/">
             <svg class="svg-icon svg-icon-small" viewBox="0 0 50 50">
-                <use xlink:href="/~husarma1/svg/login.svg#login-svg"></use>
+                <use xlink:href="/~husarma1/public/svg/login.svg#login-svg"></use>
             </svg>
             Log in
         </a>
         <a href="/~husarma1/register/">
             <svg class="svg-icon svg-icon-small" viewBox="0 0 15 15">
-                <use xlink:href="/~husarma1/svg/register.svg#register-svg"></use>
+                <use xlink:href="/~husarma1/public/svg/register.svg#register-svg"></use>
             </svg>
             Register
         </a>
     {{/user}}
     <a href="/~husarma1/userSettings/">
         <svg class="svg-icon svg-icon-small" viewBox="0 0 50 50">
-            <use xlink:href="/~husarma1/svg/user.svg#user-svg"></use>
+            <use xlink:href="/~husarma1/public/svg/user.svg#user-svg"></use>
         </svg>
     User Settings</a>
     <a href="/~husarma1/item/add/">
         <svg class="svg-icon svg-icon-small" viewBox="0 0 24 24">
-            <use xlink:href="/~husarma1/svg/add.svg#add-svg"></use>
+            <use xlink:href="/~husarma1/public/svg/add.svg#add-svg"></use>
         </svg>
     Add item</a>
 </nav>
@@ -51,18 +51,18 @@
              height="50"
              alt="logo"
              class="logo"
-             src="/~husarma1/images/logo.png">
+             src="/~husarma1/public/images/logo.png">
     </a>
     <form class="search-container" method="get" action="/~husarma1/katalog/">
         <input type="text" name="q" autocomplete="off" id="searchBar" placeholder="Enter product name (2+ characters)" maxlength="50" minlength="2" required {{#q}}value="{{q}}"{{/q}}>
         <button type="reset" title="Clear">
             <svg class="svg-icon" viewBox="0 -2 20 20" data-is-empty="false">
-                <use xlink:href="/~husarma1/svg/close.svg#close-svg"></use>
+                <use xlink:href="/~husarma1/public/svg/close.svg#close-svg"></use>
             </svg>
         </button>
         <button type="submit" title="Search">
             <svg class="svg-icon" viewBox="0 0 50 50">
-                <use xlink:href="/~husarma1/svg/magnifier.svg#magnifier-svg"></use>
+                <use xlink:href="/~husarma1/public/svg/magnifier.svg#magnifier-svg"></use>
             </svg>
         </button>
     </form>

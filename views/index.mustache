@@ -1,13 +1,14 @@
 <main>
-    {{! TODO make using links, not  buttons }}
-    <form method="get" action="./katalog/" class="categories">
+    <ul class="categories">
         {{#categoryList}}
-        <button type="submit" value="{{category}}" name="category">
-            <svg class="svg-icon" viewBox="0 0 50 50" data-is-empty="false">
-                <use xlink:href="/~husarma1/svg/categories/{{category}}.svg#{{category}}-svg"></use>
-            </svg>
-            <span>{{label}}</span>
-        </button>
+        <li>
+            <a href="/~husarma1/katalog/?category={{category}}">
+                <svg class="svg-icon" viewBox="0 0 50 50" data-is-empty="false">
+                    <use xlink:href="/~husarma1/public/svg/categories/{{category}}.svg#{{category}}-svg"></use>
+                </svg>
+                <p>{{label}}</p>
+            </a>
+        </li>
     {{/categoryList}}
-</form>
+</ul>
 </main>

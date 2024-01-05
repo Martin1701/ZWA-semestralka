@@ -16,15 +16,17 @@
 <ul class="search-items">
     {{#listItems}}
     <li>
-        {{#item.imageFormat}}
-        <img src="/~husarma1/images/{{item.id}}.{{item.imageFormat}}"
-             alt="{{item.name}} image">
+        <a href="/~husarma1/item/details/?id={{item.id}}">
+            {{#item.imageFormat}}
+            <img src="/~husarma1/public/images/{{item.id}}.{{item.imageFormat}}"
+                 alt="{{item.name}} image">
+        {{/item.imageFormat}}
+        {{^item.imageFormat}}
+        <img src="/~husarma1/public/images/noImage.png" alt="No image">
     {{/item.imageFormat}}
-    {{^item.imageFormat}}
-    <img src="/~husarma1/images/noImage.png" alt="No image">
-{{/item.imageFormat}}
-<a href="/~husarma1/item/details/?id={{item.id}}">{{item.name}}</a>
-<p>Quantity: {{item.quantity}} pcs</p>
+    <p>{{item.name}}</p>
+    <p>Quantity: {{item.quantity}} pcs</p>
+</a>
 </li>
 {{/listItems}}
 </ul>

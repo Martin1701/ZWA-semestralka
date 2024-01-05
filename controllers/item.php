@@ -26,6 +26,7 @@ $common = function () {
     $data["name"] = new formInput("name");
     $data["description"] = new formInput("description");
     $data["quantity"] = new formInput("quantity");
+    $data["image"] = new formInput("image");
 
     if (isset($_POST["attrCount"])) {
         $data["attrCount"] = $_POST["attrCount"];
@@ -40,7 +41,6 @@ $common = function () {
         }
     }
     // go through all attributes and make them views compatible format
-    // TODO modify json to be like this
     foreach (getAttributes() as $key => $group) {
         $al["label"] = $key;
         $al["value"] = [];
@@ -111,10 +111,19 @@ $common = function () {
     }
     // mark the last selected value as selected
     if ($data["category"]->value) {
+        $categorySelected = false;
         foreach ($data["categoryList"] as &$li) {
             if ($data["category"]->value == $li["category"]) {
                 $li["selected"] = "selected";
+                $categorySelected = true;
+                break;
             }
+        }
+        // if user "somehow" sends category that is not in list
+        if (!$categorySelected) {
+            $data["category"]->value = "";
+            $data["category"]->incorrect = true;
+            $data["category"]->notice = "Please select a valid category";
         }
     }
 
@@ -126,6 +135,20 @@ $common = function () {
     while (sizeof($data["attributes"]) < $data["attrCount"]) {
         $data["attributes"][] = ["attr" => ["name" => "attr" . sizeof($data["attributes"])], "val" => ["name" => "val" . sizeof($data["attributes"])], "attributeList" => $attributeList];
     }
+
+    if (isset($_FILES["image"])) {
+        if ($_FILES["image"]["error"] == UPLOAD_ERR_OK) {
+            $fmt = strtolower(pathinfo($_FILES["image"]['name'], PATHINFO_EXTENSION));
+            if ($fmt != "png" && $fmt != "png") {
+                $data["image"]->incorrect = true;
+                $data["image"]->notice = "Not a valid file type.";
+            }
+        } else {
+            $data["image"]->incorrect = true;
+            $data["image"]->notice = "Error uploading file.";
+        }
+    }
+
     return $data;
 };
 
@@ -148,6 +171,7 @@ function add()
         && !isset($data["name"]->incorrect)
         && !isset($data["description"]->incorrect)
         && !isset($data["quantity"]->incorrect)
+        && !isset($data["file"]->incorrect)
     ) {
         // assemble attributes to copatible pack
         if (sizeof($data["attributes"])) {
@@ -162,12 +186,49 @@ function add()
         }
 
         if (isset($_FILES["image"]) && $_FILES["image"]["error"] == UPLOAD_ERR_OK) {
-            // TODO check file type
-            //  $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);4
             $fmt = strtolower(pathinfo($_FILES["image"]['name'], PATHINFO_EXTENSION));
             $id = addItem($data["name"]->value, $_SESSION["id"], $data["category"]->value, $data["quantity"]->value, $data["description"]->value, ((isset($itemAttrs)) ? $itemAttrs : []), $fmt);
-            // TODO resize image (250x250)?
-            move_uploaded_file($_FILES["image"]["tmp_name"], "images/" . $id . "." . $fmt);
+            // Path to save the uploaded image
+            $targetPath = "public/images/" . $id . "." . $fmt;
+
+            // Move the uploaded file to the target path
+            move_uploaded_file($_FILES["image"]["tmp_name"], $targetPath);
+            // Load the original image
+            if ($fmt == "jpg" || $fmt == "jpeg") {
+                $originalImage = imagecreatefromjpeg($targetPath);
+            } elseif ($fmt == "png") {
+                $originalImage = imagecreatefrompng($targetPath);
+            }
+
+            // Get the original image dimensions
+            $originalWidth = imagesx($originalImage);
+            $originalHeight = imagesy($originalImage);
+
+            // Determine the crop size to achieve a 1:1 ratio
+            $cropSize = min($originalWidth, $originalHeight);
+
+            // Calculate the crop position for center alignment
+            $cropX = ($originalWidth - $cropSize) / 2;
+            $cropY = ($originalHeight - $cropSize) / 2;
+
+            // Create a new image with the desired size
+            $newWidth = $newHeight = 500;
+            $newImage = imagecreatetruecolor($newWidth, $newHeight);
+
+            // Crop and resize the image
+            imagecopyresampled($newImage, $originalImage, 0, 0, $cropX, $cropY, $newWidth, $newHeight, $cropSize, $cropSize);
+
+            // Save the resized and cropped image back to the target path
+            if ($fmt == "jpg" || $fmt == "jpeg") {
+                imagejpeg($newImage, $targetPath, 90); // Adjust quality as needed
+            } elseif ($fmt == "png") {
+                imagepng($newImage, $targetPath, 9); // Adjust compression level as needed
+            }
+
+
+            // Free up memory
+            imagedestroy($originalImage);
+            imagedestroy($newImage);
         } else {
             // add item without image
             $id = addItem($data["name"]->value, $_SESSION["id"], $data["category"]->value, $data["quantity"]->value, $data["description"]->value, ((isset($itemAttrs)) ? $itemAttrs : []));
@@ -223,7 +284,7 @@ function edit()
     if (isset($_POST["delete"])) {
         // delete item
         if ($item["imageFormat"]) {
-            unlink(("../katalog/images/" . $item["id"] . "." . $item["imageFormat"]));
+            unlink(("public/images/" . $item["id"] . "." . $item["imageFormat"]));
         }
         deleteItem($item["id"]);
         header("location: /~husarma1/");
@@ -239,7 +300,7 @@ function edit()
         $data["quantity"]->value = $item["quantity"];
 
         if ($item["imageFormat"]) {
-            $data["fileSize"] = $returnFileSize(filesize("images/" . $item["id"] . "." . $item["imageFormat"]));
+            $data["fileSize"] = $returnFileSize(filesize("public/images/" . $item["id"] . "." . $item["imageFormat"]));
         }
 
         // pre-select category
@@ -283,6 +344,7 @@ function edit()
         && !isset($data["name"]->incorrect)
         && !isset($data["description"]->incorrect)
         && !isset($data["quantity"]->incorrect)
+        && !isset($data["file"]->incorrect)
     ) {
         // assemble attributes to copatible pack
         if (sizeof($data["attributes"])) {
@@ -297,16 +359,12 @@ function edit()
         }
 
         if (isset($_FILES["image"]) && $_FILES["image"]["error"] == UPLOAD_ERR_OK) {
-            // TODO check file type
-            //  $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);4
-
             if ($item["imageFormat"]) {
-                unlink(("images/" . $item["id"] . "." . $item["imageFormat"])); // remove old file
+                unlink(("public/images/" . $item["id"] . "." . $item["imageFormat"])); // remove old file
             }
-            // TODO resize image (250x250)?
             // Path to save the uploaded image
             $fmt = strtolower(pathinfo($_FILES["image"]['name'], PATHINFO_EXTENSION));
-            $targetPath = "images/" . $item["id"] . "." . $fmt;
+            $targetPath = "public/images/" . $item["id"] . "." . $fmt;
 
             // Move the uploaded file to the target path
             move_uploaded_file($_FILES["image"]["tmp_name"], $targetPath);

@@ -1,38 +1,72 @@
-const username_field = document.querySelector(`input[name="login"]`);
-username_field.addEventListener("input", validateLogin)
-const password_field = document.querySelectorAll(`input[type="password"]`);
-password_field[1].addEventListener("input", validatePassword)
-password_field[2].addEventListener("input", validatePassword2)
+const fName = document.querySelector(`main form input[name="fName"]`)
+const lName = document.querySelector(`main form input[name="lName"]`)
+const login = document.querySelector(`input[name="login"]`)
+let passwordCur = document.querySelectorAll(`input[type="password"]`)[0]
+const password = document.querySelectorAll(`input[type="password"]`)[1]
+const password2 = document.querySelectorAll(`input[type="password"]`)[2]
+const form = document.querySelector("main form")
 
+fName.addEventListener("input", removeValidationStyle)
+lName.addEventListener("input", removeValidationStyle)
+passwordCur.addEventListener("input", removeValidationStyle)
+login.addEventListener("input", validateLogin)
+password.addEventListener("input", validatePassword)
+password2.addEventListener("input", validatePassword2)
 
+form.addEventListener("submit", validateSettings);
 
-function validateStyle(notice, isValid, noticeElem, inputField) {
-    if (notice) {
-        if (isValid) {
-            inputField.classList.remove("incorrectInput");
-            inputField.classList.add("correctInput");
-            // inputField.classList.remove("incorrectText");
-            // inputField.classList.add("correctText");
-            noticeElem.classList.remove("incorrectText");
-            noticeElem.classList.add("correctText");
-            noticeElem.innerHTML = notice;
-        } else {
-            inputField.classList.add("incorrectInput");
-            inputField.classList.remove("correctInput");
-            // inputField.classList.add("incorrectText");
-            // inputField.classList.remove("correctText");
-            noticeElem.classList.add("incorrectText");
-            noticeElem.classList.remove("correctText");
-            noticeElem.innerHTML = notice;
+function validateSettings(e) {
+    if (fName.value) {
+        validationStyle("", false, fName.nextElementSibling, fName)
+    } else {
+        validationStyle("This field is obligatory.", false, fName.nextElementSibling, fName)
+        e.preventDefault();
+        window.scrollTo(0, 0);
+    }
+    if (lName.value) {
+        validationStyle("", false, lName.nextElementSibling, lName)
+    } else {
+        validationStyle("This field is obligatory.", false, lName.nextElementSibling, lName)
+        e.preventDefault();
+        window.scrollTo(0, 0);
+    }
+    if (login.value) {
+        if (login.classList.contains("incorrectInput")) {
+            e.preventDefault();
+            window.scrollTo(0, 0);
         }
     } else {
-        inputField.classList.remove("incorrectInput");
-        inputField.classList.remove("correctInput");
-        noticeElem.innerHTML = "";
+        validationStyle("This field is obligatory.", false, login.nextElementSibling, login)
+        e.preventDefault();
+        window.scrollTo(0, 0);
+    }
+    // only if in any of the password inputs is value, validate those
+
+    if (passwordCur.value || password.value || password2.value) {
+        if (passwordCur.value) {
+            validationStyle("", false, passwordCur.nextElementSibling, passwordCur)
+        } else {
+            validationStyle("This field is obligatory.", false, passwordCur.nextElementSibling, passwordCur)
+            e.preventDefault();
+        }
+        if (password.value) {
+            if (!password.classList.contains("correctInput")) {
+                e.preventDefault();
+            }
+        } else {
+            validationStyle("This field is obligatory.", false, password.nextElementSibling, password)
+            e.preventDefault();
+        }
+        if (password2.value) {
+            if (!password2.classList.contains("correctInput")) {
+                e.preventDefault();
+            }
+        } else {
+            validationStyle("This field is obligatory.", false, password2.nextElementSibling, password2)
+            e.preventDefault();
+        }
     }
 }
-
-
 
 
 async function validateLogin(e) {
@@ -52,7 +86,7 @@ async function validateLogin(e) {
             }
         }
     }
-    validateStyle(notice, isValid, e.target.nextElementSibling, e.target);
+    validationStyle(notice, isValid, e.target.nextElementSibling, e.target);
 }
 function validatePassword(e) {
     let notice, isValid;
@@ -62,7 +96,7 @@ function validatePassword(e) {
     }
     const password_field = document.querySelector(`input[name="password2"]`);
     password_field.dispatchEvent(new Event("input"));
-    validateStyle(notice, isValid, e.target.nextElementSibling, e.target);
+    validationStyle(notice, isValid, e.target.nextElementSibling, e.target);
 }
 
 async function validatePassword2(e) {
@@ -77,7 +111,7 @@ async function validatePassword2(e) {
         isValid = false;
         notice = "Passwords do not match";
     }
-    validateStyle(notice, isValid, e.target.nextElementSibling, e.target);
+    validationStyle(notice, isValid, e.target.nextElementSibling, e.target);
 }
 
 
