@@ -98,9 +98,9 @@ function deleteItem($id)
 function editItem($item)
 {
     $all = listItems();
-    foreach ($all as $key => &$value) {
+    foreach ($all as &$value) {
         if ($value["id"] == $item["id"]) {
-            $all[$key] = $item;
+            $value = $item;
             saveItems($all);
             return;
         }

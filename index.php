@@ -25,7 +25,7 @@ if (file_exists($action_controller)) {
 
 // does the action (function) exist ?
 if (function_exists($todo[1])) {
-    $todo[1](); // call it
+    $todo[1]();
 } else {
     echo ("Non existing method <b>" . htmlspecialchars($todo[1]) . "()</b> called.");
     exit();

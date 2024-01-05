@@ -268,11 +268,11 @@ function add()
  */
 function edit()
 {
-    // get item, redirect user to main page if no id is set or if the item does not exist
+    // get item, redirect user to main page if no id is set
     if (isset($_GET["id"])) {
         $item = getItem($_GET["id"]);
         if (!isset($item)) {
-            header("location: /~husarma1/");
+            include "views/notFound.html";
             die();
         }
     } else {
@@ -298,7 +298,6 @@ function edit()
     $data = common();
     $data["title"] = "Edit item";
     $data["item"] = $item;
-
 
     if (isset($_POST["delete"])) {
         // delete item
@@ -379,7 +378,7 @@ function edit()
 
         if (isset($_FILES["image"]) && $_FILES["image"]["error"] == UPLOAD_ERR_OK) {
             if ($item["imageFormat"]) {
-                unlink(("public/images/" . $item["id"] . "." . $item["imageFormat"])); // remove old file
+                unlink(("public/images/" . $item["id"] . "." . $item["imageFormat"])); // remove old image
             }
             // Path to save the uploaded image
             $fmt = strtolower(pathinfo($_FILES["image"]['name'], PATHINFO_EXTENSION));
@@ -472,9 +471,9 @@ function details()
         die();
     }
     $item = getItem($_REQUEST["id"]);
-    // if item does not exist, return user to main page
+    // if item does not exist
     if (!isset($item)) {
-        header("location: /~husarma1/");
+        include "views/notFound.html";
         die();
     }
 
@@ -492,7 +491,6 @@ function details()
     if (isset($attrs)) {
         $item["attributes"] = $attrs;
     }
-
 
     $data = [];
     $data["item"] = $item;

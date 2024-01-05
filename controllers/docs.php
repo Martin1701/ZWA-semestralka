@@ -12,7 +12,7 @@
  */
 function basic()
 {
-    header("location: https://zwa.toad.cz/~husarma1/docs/api/index.html");
+    header("location: /~husarma1/docs/api/index.html");
     die();
 }
 /**
@@ -22,6 +22,6 @@ function basic()
  */
 function api()
 {
-    header("location: https://zwa.toad.cz/~husarma1/docs/api/index.html");
+    header("location: /~husarma1/docs/api/index.html");
     die();
 }

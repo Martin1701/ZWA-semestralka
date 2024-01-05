@@ -120,9 +120,9 @@ function deleteUser($id)
 function editUser($user)
 {
     $all = listUsers();
-    foreach ($all as $key => &$value) {
+    foreach ($all as &$value) {
         if ($value["id"] == $user["id"]) {
-            $all[$key] = $user;
+            $value = $user;
             saveUsers($all);
             return;
         }

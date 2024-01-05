@@ -98,16 +98,6 @@ function basic()
             header("location: ../item/details/?id=" . $items[0]["item"]["id"]);
             die();
         }
-
-        // create links to categories that have these items and show their count
-        $inCategorires = [];
-        foreach ($items as &$item) {
-            if (isset($inCategorires[$item["item"]["category"]])) {
-                $inCategorires[$item["item"]["category"]]++;
-            } else {
-                $inCategorires[$item["item"]["category"]] = 1;
-            }
-        }
     }
 
     // go through items and only accept the ones that have the desired category
@@ -129,6 +119,15 @@ function basic()
             }
         }
     } else {
+        // to create links to categories that have these items and show their count
+        $inCategorires = [];
+        foreach ($items as &$item) {
+            if (isset($inCategorires[$item["item"]["category"]])) {
+                $inCategorires[$item["item"]["category"]]++;
+            } else {
+                $inCategorires[$item["item"]["category"]] = 1;
+            }
+        }
         foreach (getCategories() as &$category) {
             // if we found items in that category
             if (isset($inCategorires[$category["category"]])) {
@@ -148,8 +147,6 @@ function basic()
         }
     }
     if (isset($items)) {
-        // Custom comparison function for sorting
-
         // Sort the array using the custom comparison function
         usort($items, "compareByName");
         $perPage = 9;

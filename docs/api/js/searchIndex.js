@@ -11,6 +11,11 @@ Search.appendIndex(
             "summary": "Checks\u0020if\u0020a\u0020login\u0020exists\u0020and\u0020sends\u0020a\u0020JSON\u0020response.",
             "url": "namespaces/default.html#function_loginExists"
         },                {
+            "fqsen": "\\api\u0028\u0029",
+            "name": "api",
+            "summary": "Redirect\u0020user\u0020to\u0020documentation",
+            "url": "namespaces/default.html#function_api"
+        },                {
             "fqsen": "\\common\u0028\u0029",
             "name": "common",
             "summary": "Common\u0020function\u0020for\u0020add\u0020and\u0020edit\u0020item.",
@@ -98,7 +103,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\getAttributes\u0028\u0029",
             "name": "getAttributes",
-            "summary": "",
+            "summary": "Retrieves\u0020a\u0020list\u0020of\u0020attributes\u0020from\u0020the\u0020JSON\u0020file.",
             "url": "namespaces/default.html#function_getAttributes"
         },                {
             "fqsen": "\\getCategories\u0028\u0029",
