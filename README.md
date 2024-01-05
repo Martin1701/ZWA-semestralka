@@ -8,10 +8,10 @@
 - [Getting Started](#getting-started)
   - [Creating an account](#creating-an-account)
 - [Usage](#usage)
-  - [Adding item](adding-item)
-  - [Editing item](editing-item)
-  - [Deleting item](deleting-item)
-  - [Search](search)
+  - [Adding item](#adding-item)
+  - [Editing item](#editing-item)
+  - [Deleting item](#deleting-item)
+  - [Search](#search)
 - [Documentation](#documentation)
 
 ## Overview
