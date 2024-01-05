@@ -10,35 +10,35 @@ The project is created using MVC front-controller architecture.
 
 ## Table of contents
 
-* [Model](model)
-  * [users](users)
-  * [items](items)
-  * [categories](categories)
-  * [attributes](attributes)
-* [View](view)
-  * [Footer](footer)
-  * [Forbidden](forbidden)
-  * [Header](header)
-  * [Index view](index-view)
-  * [Add item](add-item)
-  * [Item details](item-details)
-  * [Item edit](item-edit)
-  * [Katalog view](katalog-view)
-  * [Login view](login-view)
-  * [Not found](not-found)
-  * [Register view](register-view)
-  * [User settings view](user-settings-view)
-* [Front controller](front-controller)
-* [Page controllers](page-controllers)
-  * [Check controller](check-controller)
-  * [Docs controller](docs-controller)
-  * [Index controller](index-controller)
-  * [Item controller](item-controller)
-  * [Katalog controller](katalog-controller)
-  * [Login controller](login-controller)
-  * [Logout controller](logout-controller)
-  * [Register controller](register-controller)
-  * [User settings controller](user-settings-controller)
+* [Model](#model)
+  * [Users](#users)
+  * [Items](#items)
+  * [Categories](#categories)
+  * [Attributes](#attributes)
+* [View](#view)
+  * [Footer](#footer)
+  * [Forbidden](#forbidden)
+  * [Header](#header)
+  * [Index view](#index)
+  * [Add item](#add-item)
+  * [Item details](#item-details)
+  * [Item edit](#item-edit)
+  * [Katalog view](#katalog-view)
+  * [Login view](#login-view)
+  * [Not found](#not-found)
+  * [Register view](#register-view)
+  * [User settings view](#user-settings-view)
+* [Front controller](#front-controller)
+* [Page controllers](#page-controllers)
+  * [Check controller](#check-controller)
+  * [Docs controller](#docs-controller)
+  * [Index controller](#index-controller)
+  * [Item controller](#item-controller)
+  * [Katalog controller](#katalog-controller)
+  * [Login controller](#login-controller)
+  * [Logout controller](#logout-controller)
+  * [Register controller](#register-controller)
+  * [User settings controller](#user-settings-controller)
 
 ## Model
 
@@ -322,13 +322,15 @@ function getAttributes()
 
 Views are utilizing mustache template engine. Each controller has one or more views, depending on needs. Generally, the view takes `$data` argument from controller and renders page based on it.
 
-Header and footer are preppended and appended to every view in its corresponding [page controller](page-controllers).
+Header and footer are preppended and appended to every view in its corresponding [page controller](#page-controllers).
 
 ### Footer
 
 [Footer](../views/footer.mustache) is used across all pages. It contains useful links.
 
-footer example:![footer](images/footer.jpg)
+footer example:
+
+![footer](images/footer.jpg)
 
 ### Forbidden
 
@@ -439,7 +441,7 @@ function updateImageDisplay(e) {
 
 ### Item edit
 
-[Item edit (itemEdit)](../views/itemEdit.mustache) renders form for adding an item. If provided data is pre-filled into the form inputs. If any notices or errors were set, they are shown and styles (classes) are changed accordingly. It is made simmilarly to **Add item** view with most notable differences being different labels and description text along with extra button to delete item. Item edit uses same [addItemValidation script](../public/js/itemAddValidation.js) and [filePreview script](../public/js/filePreview.js) as[ add item](add-item).
+[Item edit (itemEdit)](../views/itemEdit.mustache) renders form for adding an item. If provided data is pre-filled into the form inputs. If any notices or errors were set, they are shown and styles (classes) are changed accordingly. It is made simmilarly to **Add item** view with most notable differences being different labels and description text along with extra button to delete item. Item edit uses same [addItemValidation script](../public/js/itemAddValidation.js) and [filePreview script](../public/js/filePreview.js) as[ add item](#add-item).
 
 ```js
 function validateItem(e) {
@@ -551,7 +553,7 @@ User tried to view item which does not exist:
 
 ### Register view
 
-[Register](../views/register.mustache) form shows user all input fields needed for [user](users) account creation/registration. Simmilarly to other views containing user forms it handles pre-filling the fields with correct or incorrect data, changing styles according to data validity and display of error notices to the user. All fields are pre-filled on unsucessful submit with the exception of password fields.
+[Register](../views/register.mustache) form shows user all input fields needed for [user](#users) account creation/registration. Simmilarly to other views containing user forms it handles pre-filling the fields with correct or incorrect data, changing styles according to data validity and display of error notices to the user. All fields are pre-filled on unsucessful submit with the exception of password fields.
 
 Password field example, note no `value=""` assign for safety reasons.
 
@@ -566,7 +568,7 @@ Password field example, note no `value=""` assign for safety reasons.
 {{/password.incorrect}}
 ```
 
-Register uses registerValidation script. It checks if input fields are empty, disabling form send if true. It also checks if user login is already used or not with `fetch()` which is handled by [check controller](check) in server side.
+Register uses registerValidation script. It checks if input fields are empty, disabling form send if true. It also checks if user login is already used or not with `fetch()` which is handled by [check controller](#check) in server side.
 
 ```js
 const response = await fetch(`https://zwa.toad.cz/~husarma1/check/loginExists/?login=${encodeURIComponent(e.target.value)}`, { mode: 'no-cors' });
@@ -609,7 +611,7 @@ function validate_input(input, minLength, maxLength, name = "") {
 
 ### User settings view
 
-User settings show form simmilar to [register](register) for updating user's account. It pre-fills the fields with already saved data. Most notable change compared to [register](register) form is the inclusion of second submit button and current password field, used to change user's password.
+User settings show form simmilar to [register](#register) for updating user's account. It pre-fills the fields with already saved data. Most notable change compared to [register](#register) form is the inclusion of second submit button and current password field, used to change user's password.
 
 ![user settings](images/userSettings.jpg)
 
@@ -670,20 +672,17 @@ Page controllers handle individual pages. They are responsible for validating th
 
 ### Controllers:
 
-* [Check controller](check-controller)
-* [Docs controller](docs-controller)
-* [Index controller](index-controller)
-* [Item controller](item-controller)
-* [Katalog controller](katalog-controller)
-* [Login controller](login-controller)
-* [Logout controller](logout-controller)
-* [Register controller](register-controller)
-* [User settings controller](user-settings-controller)
-
+* [Check controller](#check-controller)
+* [Docs controller](#docs-controller)
+* [Index controller](#index-controller)
+* [Item controller](#item-controller)
+* [Katalog controller](#katalog-controller)
+* [Login controller](#login-controller)
+* [Logout controller](#logout-controller)
+* [Register controller](#register-controller)
+* [User settings controller](#user-settings-controller)
 
 ---
-
-
 
 ### Check controller
 
@@ -703,7 +702,7 @@ Function `loginExists()` expects parameter "login" in GET request. It then queri
 
 ### Index controller
 
-[Index controller](../controllers/index.php) is a main page controller. It requests the categories list from [categories ](categories)model and pases them to the [index view](index-view) (launches mustache template engine). It contains only `basic()` function.
+[Index controller](../controllers/index.php) is a main page controller. It requests the categories list from [categories ](#categories)model and pases them to the [index view](#index-view) (launches mustache template engine). It contains only `basic()` function.
 
 #### `basic()`
 
@@ -724,7 +723,7 @@ function basic()
 }
 ```
 
-Function first initiates the `$data` variable, sets the `"title"` property (title of the document). If user is logged-in, retrieves `user` object of logged-in user. Category list is returned from [categories model](categories) function `getCategories()`. Variable `$data` is then passed to mustache engine which uses [header](header) combined with [index](index-view) and [footer](footer) views. Mustache template is then rendered. Simmilar rendering principle is then utilized in other [page controllers](page-controllers).
+Function first initiates the `$data` variable, sets the `"title"` property (title of the document). If user is logged-in, retrieves `user` object of logged-in user. Category list is returned from [categories model](#categories) function `getCategories()`. Variable `$data` is then passed to mustache engine which uses [header](#header) combined with [index](#index-view) and [footer](#footer) views. Mustache template is then rendered. Simmilar rendering principle is then utilized in other [page controllers](#page-controllers).
 
 ### Item controller
 
@@ -736,7 +735,7 @@ Redirects user to main page.
 
 #### `common()`
 
-Since form in[ add item view](add-item) and [edit item view](edit-item) are simmilar, common function for getting data from request and validation is used, all other specific tasks are handled in `add()` and `edit()` functions respectively. Function sets all data into `$data` variable which is returned and later passed to respective view.
+Since form in[ add item view](#add-item) and [edit item view](#edit-item) are simmilar, common function for getting data from request and validation is used, all other specific tasks are handled in `add()` and `edit()` functions respectively. Function sets all data into `$data` variable which is returned and later passed to respective view.
 
 For data fields `formInput` class is used.
 
@@ -873,7 +872,7 @@ if (isset($_POST["delete"])) {
 
 #### `details()`
 
-Function `details` is used to retrieve details of item which is specified in request by `id`. If no `id` is specified, the user is redirected to main page. If `id` which does not correspond to any of the items in database is specified, the user is presented with [not found page](not-found). Details page also orderd the item attributes in an order as is in [attributes](attributes) database.
+Function `details` is used to retrieve details of item which is specified in request by `id`. If no `id` is specified, the user is redirected to main page. If `id` which does not correspond to any of the items in database is specified, the user is presented with [not found page](#not-found). Details page also orderd the item attributes in an order as is in [attributes](#attributes) database.
 
 ```php
 // replace attribute names with attribute labels
@@ -903,7 +902,7 @@ $owner = getUser($item["owner"]);
 $data["owner"] = $owner;
 ```
 
-Owner of the item is retrieved from `id` in `owner` property of `item` using `getUser()` function from [users model](users).
+Owner of the item is retrieved from `id` in `owner` property of `item` using `getUser()` function from [users model](#users).
 
 #### `returnFileSize($bytes)`
 
@@ -1129,7 +1128,7 @@ die();
 
 ### Register controller
 
-[Register controller](../controllers/register.php) handles registration of the user. It receives data from request and upon validation, communicates with [user model](users) and adds user.\
+[Register controller](../controllers/register.php) handles registration of the user. It receives data from request and upon validation, communicates with [user model](#users) and adds user.\
 
 #### `basic()`
 
@@ -1178,7 +1177,7 @@ if (
 }
 ```
 
-If logged-in user tries to register, he is first redirected to [logout](logout) with `afterLogout` cookie set to url of register controller. This automatically logouts the user and returns him back to register page.
+If logged-in user tries to register, he is first redirected to [logout](#logout) with `afterLogout` cookie set to url of register controller. This automatically logouts the user and returns him back to register page.
 
 ```php
 if (isset($_SESSION["id"])) {
