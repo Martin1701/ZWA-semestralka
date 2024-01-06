@@ -1,4 +1,3 @@
-return;
 const category = document.querySelector(`main form select[name="category"]`)
 const name = document.querySelector(`main form input[name="name"]`)
 const description = document.querySelector(`main form input[name="description"]`)

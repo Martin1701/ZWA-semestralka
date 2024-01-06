@@ -568,7 +568,7 @@ Password field example, note no `value=""` assign for safety reasons.
 {{/password.incorrect}}
 ```
 
-Register uses registerValidation script. It checks if input fields are empty, disabling form send if true. It also checks if user login is already used or not with `fetch()` which is handled by [check controller](#check) in server side.
+Register uses registerValidation script. It checks if input fields are empty, disabling form send if true. It also checks if user login is already used or not with `fetch()` which is handled by [check controller](#check-controller) in server side.
 
 ```js
 const response = await fetch(`https://zwa.toad.cz/~husarma1/check/loginExists/?login=${encodeURIComponent(e.target.value)}`, { mode: 'no-cors' });
@@ -659,7 +659,6 @@ validationStyle(notice, isValid, e.target.nextElementSibling, e.target);
 If any of controller or functions do not exists the front controller reports the error.
 
 ```php
-...
 else {  
     echo ("Non existing action controller <b>" . htmlspecialchars($todo[0]) . "</b> called.");
     exit();
@@ -740,17 +739,13 @@ Since form in[ add item view](#add-item) and [edit item view](#edit-item) are si
 For data fields `formInput` class is used.
 
 ```php
-...
 $data["description"] = new formInput("description");
-...
 ```
 
 For validation `getInput()` method of `formInput` class is used. This class sets the `incorrect` and `notice` properties depending on input. Specific validation like length and inclusion of character and/or digit is handled in `common()` or `add()` and `edit()` functions.
 
 ```php
-...
 $data["description"]->getInput();
-...
 ```
 
 #### `add()`
